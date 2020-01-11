@@ -6,12 +6,10 @@
 public class dnd1{
 
     public static void main(String[] args) {
-        Fighter Dredd = new Fighter();
-        Dredd.name = "Dredd";
-        Dredd.healthy();
+        Fighter Dredd = new Fighter("Dredd");   //the argument string is for the name attribute.
+        Dredd.healthy();        //Dredd tells us how healthy he is.
 
-        Character Mike = new Character(/*"default"*/);
-        Mike.name = "Mike";
+        Character Mike = new Character("Mike");
 
         Dredd.talk_to(Mike);
         //Mike.talk_to(Dredd);      //same conversation, but names are reversed

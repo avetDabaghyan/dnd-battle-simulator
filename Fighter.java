@@ -1,7 +1,6 @@
 //import stuff
 
-//comments updated on 31.12.2019
-//happy new year!
+//comments updated on 11/1/2020
 
 
 //includes: a DnD class Fighter. Parent is Character class because we need all the methods and fields that a regular person/character has.
@@ -10,12 +9,10 @@ public class Fighter extends Character{
 
     static int army = 0;        //just a random little variable that could be useful later
 
-    Fighter(){
-        //is this the constructor?
-        //this is the constructor.
-        super(/*"default"*/);   //no need to use the template for now.
+    Fighter(String newName){
+        super(newName);   //get everything that a regular Character has. Argument is name attribute.
         this.hp = 16;
-        this.ac = 16;
+        this.ac = 16;   //have to figure out fighter standard values later.
         army++;     //army += 1 whenever a Fighter is created.
     }
 
