@@ -24,7 +24,7 @@ public class Weapon{
 
         //combat bonus is used both when calculating the attack and the damage.
         //it is based on the type/usage of weapon.
-        public int get_combat_bonus(Character owner){
+        public int getCombatBonus(Character owner){
             int combat_bonus = 0;
             if(usage == "any"){             //if weapon can be used using any modifier, take the highest.
                 combat_bonus = Math.max(owner.str,owner.dex);
@@ -38,6 +38,6 @@ public class Weapon{
                 }
             }
             return combat_bonus;
-        }//end get_combat_bonus()
+        }//end getCombatBonus()
 
 }//class Weapon

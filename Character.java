@@ -1,8 +1,9 @@
 import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
-//comments updated on 11/1/2020 (moved large comments to Notes below.)
+//comments updated on 17/1/2020 (search for "***" for to-do items)
 
+//for future to-do items or notes, search for "***" and find them in comments.
 
 
 //includes: a character class that should be the base for all people in the simulation.
@@ -35,6 +36,8 @@ public class Character{
                                     //i guess using a weapon class is good because 1 weapon should have all the information about itself
                                     //and in the future, this will be convenient for characters who swap weapons.
 
+    Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
+    Character next_turn;            //this is for FightLoop class interaction. sets who should go next.
 
     Character(String newName){     //constructor.
         name = newName;
@@ -65,29 +68,31 @@ public class Character{
         return result;
     }//end roll20()
 
+    public int rollInitiative(){
+        int result = this.roll20() + dex;
+        return result;
+    }
+
     //moved nested class Weapon to a public class.
 
     //this attacks target. dice is compared to target's AC. if hits, deals damage based on weapon.
     public void attack(Character target){
-        System.out.println("        -Have at thee, " + target.name);
-        int combat_bonus = weapon.get_combat_bonus(this);
+        //System.out.println("        -Have at thee, " + target.name);
+        int combat_bonus = weapon.getCombatBonus(this);
         int atk_bonus = proficiency + combat_bonus;    //attack bonus includes proficiency bonus
 
         int attack_dice = roll20();
-        if (((attack_dice + atk_bonus) >= target.ac) || attack_dice == 20){     //if total attack >= target's AC, or if the attack is a crit:
+        if ((((attack_dice + atk_bonus) >= target.ac) || attack_dice == 20) && attack_dice != 1){     //if total attack >= target's AC, or if the attack is a crit:
             //System.out.println("Hit! " + Integer.toString(attack_dice) + " , " + Integer.toString(target.ac));
-
-            if(attack_dice == 20) { deal_damage("crit", target, combat_bonus); }        //deal damage method from weapon. different for crit.
-            else { deal_damage("", target, combat_bonus); }
-
-        }
-        else {      //else, miss the attack.
+            if(attack_dice == 20) { dealDamage("crit", target, combat_bonus); }        //deal damage method from weapon. different for crit.
+            else { dealDamage("", target, combat_bonus); }
+        } else {      //else, miss the attack.
             System.out.println("Missed! " + Integer.toString(attack_dice) + " , " + Integer.toString(target.ac));
             if(attack_dice == 1) { System.out.println("haha you fumbled you fool"); }       //if fumbled (the opposite of crit), make fun of attacker.
         }
     }//end attack target
 
-    public int deal_damage(String crit, Character target, int combat_bonus){
+    public int dealDamage(String crit, Character target, int combat_bonus){
         int damage = roll(weapon.dice, weapon.type, 0);
         if(crit == "crit") {        //if the attack was a crit (critical hit), then double the dice-only damage.
             damage *= 2;
@@ -99,13 +104,15 @@ public class Character{
         System.out.println("Dealt " + Integer.toString(damage) + " damage! ye");
 
         return damage;
-    }//end deal_damage()
+    }//end dealDamage()
 
     //just a silly method for testing 2 character's interaction
-    public void talk_to(Character target){
+    public void talkTo(Character target){
         System.out.println("\n        -Hello! My name is " + this.name + ", what is your name?");
         System.out.println("        -Hi " + this.name + "! I am " + target.name + ". Good weather isn't it? \n");
-    }//end talk_to target
+    }//end talkTo target
+
+
 
 
                 //main, for testing
