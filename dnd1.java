@@ -1,7 +1,14 @@
 //import java.util.*;  //for random
 
-//comments updated on 17/1/2020
-//now trying to make a separate way to set up and run 1v1 to-the-death fights.
+//comments updated on 20/1/2020
+//now labeling with actual versions.
+//this will be v0.0.1
+
+
+//done - now trying to make a separate way to set up and run 1v1 to-the-death fights.
+
+//includes: the main class, or driver class.
+
 
 public class dnd1{
 

@@ -2,8 +2,8 @@ import java.util.*; //for Arrays.
 
 
 //includes: FightLoop class, which is a separate environment for setting up fights.
-//***should add a way to end the loop, for example when combat is over but no one is dead. done.
-//***should add a way for characters to rest/revive after fights.
+//done - should add a way to end the loop, for example when combat is over but no one is dead.
+//***should add a way for characters to rest/revive/return after fights.
 
 public class FightLoop{
     //decided to just edit Character to have "enemy" and "next_turn" fields.

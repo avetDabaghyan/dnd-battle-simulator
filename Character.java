@@ -1,14 +1,14 @@
 import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
-//comments updated on 17/1/2020 (search for "***" for to-do items)
+//comments updated on 20/1/2020 (added Advantage and Disadvantage)
 
-//for future to-do items or notes, search for "***" and find them in comments.
-
+//for future to-do items, search for "***" and find them in comments.
+//for more information, see Notes section below.
 
 //includes: a character class that should be the base for all people in the simulation.
-//considering that items like weapons and chairs also have attributes/stats, this can even be used for inanimate objects.
-//also includes a (nested???) class, Weapon. Because all people will probably be carrying a weapon around.
+//considering that items like weapons and chairs also have attributes like health, this might even be used for inanimate objects.
+//also includes a (no longer nested) class, Weapon. Because all people will probably be carrying a weapon around.
 
 
 public class Character{
@@ -71,12 +71,12 @@ public class Character{
     public int rollAdvantage(){
         int result = Math.min(roll20(), roll20());
         return result;
-    }
+    }//end rollAdvantage()
 
     public int rollDisadvantage(){
         int result = Math.max(roll20(), roll20());
         return result;
-    }
+    }//end rollDisadvantage()
 
     public int rollInitiative(){
         int result = this.roll20() + dex;
