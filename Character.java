@@ -68,6 +68,16 @@ public class Character{
         return result;
     }//end roll20()
 
+    public int rollAdvantage(){
+        int result = Math.min(roll20(), roll20());
+        return result;
+    }
+
+    public int rollDisadvantage(){
+        int result = Math.max(roll20(), roll20());
+        return result;
+    }
+
     public int rollInitiative(){
         int result = this.roll20() + dex;
         return result;
