@@ -52,16 +52,18 @@ public class FightLoop{
             active = p2;
         }
         //set-up block. is there a way to use a method here?
-        System.out.println(active.name);
+
+        System.out.println("\n" + active.name);
         System.out.println("VS");
         System.out.println(active.enemy.name);
         System.out.println("FIGHT! \n");
 
         //fight block.
         int turn = 1;
+        int round = 1;
         Character first_turn = active;  //save who was first in initiative.
         //***maybe use "String first_turn = active.name" ???
-        int max_turn = 20;
+        int max_round = 10;
         boolean fight_over = false;
 
         while(!fight_over){
@@ -69,17 +71,20 @@ public class FightLoop{
             if(active.enemy.hp <= 0){   //if that last attack was lethal, ...
                 System.out.println("     ..." + active.name + " pwned " + active.enemy.name);
                 //***maybe return the winning character??
-                System.out.println("     ...After " + Integer.toString(turn) + " turns, " + active.name + " wins! With " + Integer.toString(active.hp) + " HP left.");
+                System.out.println("     ...After " + Integer.toString(round) + " rounds, " + active.name + " wins! With " + Integer.toString(active.hp) + " HP left.");
                 fight_over = true;  //end fight with this boolean switch.
             } else{ //if was not lethal, continue.
-                if(turn >= 20){   //if the fight has gone too long, end it.
-                    System.out.println("     ---Time out! It's turn " + Integer.toString(max_turn));    //"Loop over" all fighters and announce their health.
+                if(round >= max_round){   //if the fight has gone too long, end it.
+                    System.out.println("     ---Time out! It's round " + Integer.toString(round));    //"Loop over" all fighters and announce their health.
                     System.out.println("     ..." + active.name + " finished with " + Integer.toString(active.hp) + " HP remaining.");
                     System.out.println("     ..." + active.enemy.name + " finished with " + Integer.toString(active.enemy.hp) + " HP remaining.");
                     fight_over = true; //switch for ending the fight.
                 }else{  //continue...
                     active = active.next_turn; //change active character. like a LinkedList !
                     turn++;
+                    if(active == first_turn){  //if the fight looped back to the first character,
+                        round++;                //go to next round.
+                    }
                 }
             }
         //fight block

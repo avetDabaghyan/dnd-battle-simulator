@@ -97,8 +97,8 @@ public class Character{
             if(attack_dice == 20) { dealDamage("crit", target, combat_bonus); }        //deal damage method from weapon. different for crit.
             else { dealDamage("", target, combat_bonus); }
         } else {      //else, miss the attack.
-            System.out.println("Missed! " + Integer.toString(attack_dice) + " , " + Integer.toString(target.ac));
-            if(attack_dice == 1) { System.out.println("haha you fumbled you fool"); }       //if fumbled (the opposite of crit), make fun of attacker.
+            System.out.println(name + " missed " + target.name);
+            if(attack_dice == 1) { System.out.println(" -haha you fumbled you fool"); }       //if fumbled (the opposite of crit), make fun of attacker.
         }
     }//end attack target
 
@@ -109,9 +109,9 @@ public class Character{
         }
         damage += weapon.rarity;
         damage += combat_bonus;
-        target.hp -= damage;
 
-        System.out.println("Dealt " + Integer.toString(damage) + " damage! ye");
+        target.hp -= damage;
+        System.out.println(name + " hit " + target.name  + " for " + Integer.toString(damage));
 
         return damage;
     }//end dealDamage()
