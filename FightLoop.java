@@ -73,7 +73,7 @@ public class FightLoop{
                 fight_over = true;  //end fight with this boolean switch.
             } else{ //if was not lethal, continue.
                 if(turn >= 20){   //if the fight has gone too long, end it.
-                    System.out.println("Time out! It's turn " + Integer.toString(max_turn));    //"Loop over" all fighters and announce their health.
+                    System.out.println("     ---Time out! It's turn " + Integer.toString(max_turn));    //"Loop over" all fighters and announce their health.
                     System.out.println("     ..." + active.name + " finished with " + Integer.toString(active.hp) + " HP remaining.");
                     System.out.println("     ..." + active.enemy.name + " finished with " + Integer.toString(active.enemy.hp) + " HP remaining.");
                     fight_over = true; //switch for ending the fight.
