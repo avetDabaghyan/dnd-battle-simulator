@@ -7,7 +7,7 @@ public class Weapon{
         int dice;
         int type;
         int rarity;             //some weapons also give a damage bonus. equal to its rarity.
-        String name;            //for other weapons. for later
+        String name;            //for other weapons.
         String usage;           //can be str, dex, any.
 
         Weapon(String template){

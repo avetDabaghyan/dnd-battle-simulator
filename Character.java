@@ -1,7 +1,7 @@
 import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
-//comments updated on 20/1/2020 (added Advantage and Disadvantage)
+//comments updated on 24/1/2020 (edited roll() comments.)
 
 //for future to-do items, search for "***" and find them in comments.
 //for more information, see Notes section below.
@@ -31,13 +31,14 @@ public class Character{
     //This is the proficiency bonus. This is a regular, common bonus shared by everyone.
     int proficiency = 2;
 
+    //moved nested class Weapon to a public class.
     //Because we're making a fighting simulator, we need weapons to fight.
     Weapon weapon;  //could be just int weapon_damage or int weapon_type, i don't know what's more correct.
                                     //i guess using a weapon class is good because 1 weapon should have all the information about itself
                                     //and in the future, this will be convenient for characters who swap weapons.
 
     Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
-    Character next_turn;            //this is for FightLoop class interaction. sets who should go next.
+    Character next_turn;            //this is for FightLoop class interaction. sets who should go next. similar to LinkedList iteration.
 
     Character(String newName){     //constructor.
         name = newName;
@@ -53,7 +54,12 @@ public class Character{
         weapon = new Weapon("Shortsword"); //Let the shortsword be the default weapon.
     }//end Character constructor
 
-    public int roll(int amount, int type, int modifier){        //dice roller. roll(4,5,6) = roll 4d5 + 6
+    //about rolling
+    //the format of rolling in DnD books is: XdY + Z, which means "roll Y-sided dice X times, then add Z".
+    //e.g. 1d8 + 2 = roll a single 8-sided die and add 2. We get a number in range (3, 10).
+    //this method: roll(X, Y, Z) = XdY + Z
+    //e.g. roll(1,8,2) = 1d8+2
+    public int roll(int amount, int type, int modifier){        //dice roller.
         Random ran = new Random();
         int result = 0;
         for(int i = 0;i < amount; i++){     //roll "amount" many dice
@@ -69,12 +75,12 @@ public class Character{
     }//end roll20()
 
     public int rollAdvantage(){
-        int result = Math.min(roll20(), roll20());
+        int result = Math.max(roll20(), roll20());
         return result;
     }//end rollAdvantage()
 
     public int rollDisadvantage(){
-        int result = Math.max(roll20(), roll20());
+        int result = Math.min(roll20(), roll20());
         return result;
     }//end rollDisadvantage()
 
@@ -83,9 +89,8 @@ public class Character{
         return result;
     }
 
-    //moved nested class Weapon to a public class.
 
-    //this attacks target. dice is compared to target's AC. if hits, deals damage based on weapon.
+    //this attacks target. dice is compared to target's AC. if >= it hits, and deals damage based on weapon.
     public void attack(Character target){
         //System.out.println("        -Have at thee, " + target.name);
         int combat_bonus = weapon.getCombatBonus(this);
@@ -113,11 +118,11 @@ public class Character{
         target.hp -= damage;
         System.out.println(name + " hit " + target.name  + " for " + Integer.toString(damage));
 
-        return damage;
+        return damage;  //don't need to return the damage yet. the damage is already dealt.
     }//end dealDamage()
 
     //just a silly method for testing 2 character's interaction
-    public void talkTo(Character target){
+    public void talkTo(Character target){   //argument is Character, which is of non-basic data type.
         System.out.println("\n        -Hello! My name is " + this.name + ", what is your name?");
         System.out.println("        -Hi " + this.name + "! I am " + target.name + ". Good weather isn't it? \n");
     }//end talkTo target
@@ -125,12 +130,12 @@ public class Character{
 
 
 
-                //main, for testing
+    //main, for testing
     // public static void main(String[] args){
     //     character Mike = new character("default");
     //     System.out.println(Mike.str);
     //     System.out.println(Mike.roll(1,6,0));
-    // }
+    // }//end main
 
 }
 
@@ -148,5 +153,6 @@ public class Character{
 //in DnD, there are 2 representations of attributes: score and modifier.
 //Scores are generally used to generate the modifiers.
 //Modifier = 0 means average. They can be in range (-5, +5), sometimes higher.
-//usually, we'll use modifiers in range (-2, +4). these are common.
+//usually, we'll use modifiers in range (-2, +4). these are commonly seen in games.
 //
+//the number range of roll(X,Y,Z) = (X + Z, X*Y + Z)

@@ -27,7 +27,7 @@ public class dnd1{
 
         Fighter greg = new Fighter("Greg");
 
-        FightLoop fight1337 = new FightLoop();
-        fight1337.fight1v1(dredd, greg);
+        FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
+        fight1337.fight1v1(dredd, greg);        //my first FightLoop method.
     }//end main()
 }

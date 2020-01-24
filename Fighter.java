@@ -23,8 +23,6 @@ public class Fighter extends Character{
 
 
     //we don't need main.
-    //the class itself doesn't have to do anything
-    //when program runs.
     // public static void main(String[] args) {
     // }
 }
