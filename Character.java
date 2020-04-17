@@ -28,6 +28,10 @@ public class Character{
 
     int ac; //AC = Armor Class. Basically, this is the probability of avoiding attacks. AC = either A. Dexterity + Armor value, or B. Just armor value.
 
+    int pos_x;  //
+    int pos_y;  //
+    int speed;  //how many spaces (including diagonally) can it move in 1 turn. e.g. 5 spaces up, or 5 spaces up + 5 spaces right.
+
     //This is the proficiency bonus. This is a regular, common bonus shared by everyone.
     int proficiency = 2;
 
@@ -40,6 +44,7 @@ public class Character{
     Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
     Character next_turn;            //this is for FightLoop class interaction. sets who should go next. similar to LinkedList iteration.
 
+
     Character(String newName){     //constructor.
         name = newName;
         //these are the modifiers, NOT scores.
@@ -49,8 +54,11 @@ public class Character{
         intel = 0;
         wis = 0;
         cha = 0;
+
         hp = 4;
         ac = 5;
+        speed = 5;
+
         weapon = new Weapon("Shortsword"); //Let the shortsword be the default weapon.
     }//end Character constructor
 
@@ -74,21 +82,33 @@ public class Character{
         return result;
     }//end roll20()
 
-    public int rollAdvantage(){
+    public int rollAdvantage(){ //take maximum of 2 d20's.
         int result = Math.max(roll20(), roll20());
         return result;
     }//end rollAdvantage()
 
-    public int rollDisadvantage(){
+    public int rollDisadvantage(){  //take minimum of 2 d20's.
         int result = Math.min(roll20(), roll20());
         return result;
     }//end rollDisadvantage()
 
-    public int rollInitiative(){
+    public int rollInitiative(){    //Initiative is used for determining turn order.
         int result = this.roll20() + dex;
         return result;
     }
 
+    public void moveTo(int target_x, int target_y){
+        //idk.
+    }//end moveTo(target_x, target_y)
+
+    public void move(int add_x, int add_y){
+        if (Math.abs(add_x) <= speed){
+            pos_x += add_x;
+        }
+        if (Math.abs(add_y) <= speed){
+            pos_y += add_y;
+        }
+    }//end move(add_x, add_y)
 
     //this attacks target. dice is compared to target's AC. if >= it hits, and deals damage based on weapon.
     public void attack(Character target){

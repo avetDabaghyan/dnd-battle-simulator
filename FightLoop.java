@@ -13,23 +13,8 @@ public class FightLoop{
     //hitting each other until one of them is dead.
     //or the timer runs out.
     public void fight1v1(Character p1, Character p2){
-        int init1 = p1.rollInitiative();
-        int init2 = p2.rollInitiative();
 
-        //start set-up block. is there a way to use a method here?
-        p1.enemy = p2;
-        p2.enemy = p1;
-
-        p1.next_turn = p2;
-        p2.next_turn = p1;
-
-        Character active;
-        if(init1 >= init2){
-            active = p1;
-        }else{
-            active = p2;
-        }
-        //end set-up block. is there a way to use a method here?
+        Character active = setup1v1(p1, p2);
 
         System.out.println("\n" + active.name);
         System.out.println("VS");
@@ -73,9 +58,39 @@ public class FightLoop{
         }//end while(!fight_over)
         //end fight block
 
-    }//end fight1v1()
+    }//end fight1v1(p1, p2)
+
+    public void battlefield1v1(Character p1, Character p2){
+        //p1.setLocations(range);
+        //p2.setLocations(range);
+
+        Character active = setup1v1(p1, p2);
 
 
+    }//end battlefield1v1(p1, p2)
+
+    public void setLocations(Character p1){
+
+    }//end setLocations(p1)
+
+    public Character setup1v1(Character p1, Character p2){
+        int init1 = p1.rollInitiative();
+        int init2 = p2.rollInitiative();
+
+        p1.enemy = p2;
+        p2.enemy = p1;
+
+        p1.next_turn = p2;
+        p2.next_turn = p1;
+
+        Character active;
+        if(init1 >= init2){
+            active = p1;
+        }else{
+            active = p2;
+        }
+        return active;
+    }//end setup1v1(p1, p2)
 
 }//end class FightLoop
 

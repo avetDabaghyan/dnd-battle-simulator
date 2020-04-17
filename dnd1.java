@@ -27,7 +27,19 @@ public class dnd1{
 
         Fighter greg = new Fighter("Greg");
 
+        dredd.pos_x = 10;
+        dredd.pos_y = -7;
+        dredd.move(-3, 9);
+        System.out.println(dredd.pos_x);
+        System.out.println(dredd.pos_y);
+
+
+        System.out.println("begin fight!");
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
         fight1337.fight1v1(dredd, greg);        //my first FightLoop method.
+
+
+
+
     }//end main()
 }
