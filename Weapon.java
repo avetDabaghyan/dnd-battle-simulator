@@ -1,8 +1,15 @@
 
+////
+//for future to-do items, search for "***" and find them in comments.
+//for more information, see Notes section below. (if available)
+
+//to-dos:
+//***sample to-do.
+//done - sample to-do 2.
+////
 
 //includes: a weapon class that has its own properties.
 //i think i can include many templates in the constructor, for different weapons.
-
 public class Weapon{
         int dice;
         int type;

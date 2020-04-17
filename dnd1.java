@@ -1,15 +1,35 @@
 //import java.util.*;  //for random
 
-//comments updated on 20/1/2020, 0.0.1
-//now labeling with actual versions.
-//this will be v0.0.1
+//v0.0.1. still at this version.
+//comments updated on 18/4/2020. added to-do list for Operation "Encounter Balance"
+////
+/*
+for future to-do items, search for "***" and find them in comments.
+for more information, see Notes section below. (if available)
 
 
-//done - now trying to make a separate way to set up and run 1v1 to-the-death fights.
+to-dos:
+***sample to-do.
+***??? Does actually estimating and calculating the encounter make it less human?
+
+***prepare the Operation "Encounter Balance"
+-how to export data? to json, excel?
+--should be easy to do.
+-how to set up teams? need another FightLoop method?
+--i guess manual team-setting is okay.
+-how do i UI all this? i'd like a UI for easy team-setting.
+--do this later, get this all working first.
+-will need conditions (% of victory with no downs; % of TPK; % of victory and 1 down, or 2 downs)
+--create a Loop of FightLoops??? whenever FightLoop is over, save number of downs in a variable.
+-where do I plan all this? here? Trello? txt file?
+
+done - sample to-do 2.
+done - now trying to make a separate way to set up and run 1v1 to-the-death fights.
+*/
+////
+
 
 //includes: the main class, or driver class.
-
-
 public class dnd1{
 
     public static void main(String[] args) {
@@ -27,14 +47,15 @@ public class dnd1{
 
         Fighter greg = new Fighter("Greg");
 
-        dredd.pos_x = 10;
-        dredd.pos_y = -7;
-        dredd.move(-3, 9);
-        System.out.println(dredd.pos_x);
-        System.out.println(dredd.pos_y);
+        //just movement test. hm
+        // dredd.pos_x = 10;
+        // dredd.pos_y = -7;
+        // dredd.move(-3, 9);
+        // System.out.println(dredd.pos_x);
+        // System.out.println(dredd.pos_y);
 
 
-        System.out.println("begin fight!");
+        System.out.println("begin fightloop! ...");
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
         fight1337.fight1v1(dredd, greg);        //my first FightLoop method.
 

@@ -2,15 +2,20 @@ import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
 //comments updated on 24/1/2020 (edited roll() comments.)
-
+////
 //for future to-do items, search for "***" and find them in comments.
-//for more information, see Notes section below.
+//for more information, see Notes section below. (if available)
+
+//to-dos:
+//***sample to-do.
+//***review the movement methods I added.
+//done - sample to-do 2.
+////
+
 
 //includes: a character class that should be the base for all people in the simulation.
 //considering that items like weapons and chairs also have attributes like health, this might even be used for inanimate objects.
 //also includes a (no longer nested) class, Weapon. Because all people will probably be carrying a weapon around.
-
-
 public class Character{
     String name;
     int level = 1;
