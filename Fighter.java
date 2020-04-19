@@ -17,7 +17,7 @@ public class Fighter extends Character{
 
     Fighter(String newName){
         super(newName);   //get everything that a regular Character has. Argument is name attribute.
-        this.hp = 16;
+        this.hp = 12;
         this.ac = 16;   //have to figure out fighter standard values later.
         army++;     //army += 1 whenever a Fighter is created.
     }

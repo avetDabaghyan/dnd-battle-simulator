@@ -1,7 +1,7 @@
 import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
-//comments updated on 24/1/2020 (edited roll() comments.)
+//comments updated on 19/4/2020. replaced "next_turn" with "next".
 ////
 //for future to-do items, search for "***" and find them in comments.
 //for more information, see Notes section below. (if available)
@@ -30,12 +30,11 @@ public class Character{
     int cha;        //Charisma
 
     int hp; //HP = health points (or hit points). HP = Constitution + a character's "hit dice" (not used here).
-
     int ac; //AC = Armor Class. Basically, this is the probability of avoiding attacks. AC = either A. Dexterity + Armor value, or B. Just armor value.
 
     int pos_x;  //
     int pos_y;  //
-    int speed;  //how many spaces (including diagonally) can it move in 1 turn. e.g. 5 spaces up, or 5 spaces up + 5 spaces right.
+    int speed;  //how many spaces (in blocks, not feet)(including diagonally) can it move in 1 turn. e.g. 5 spaces up, or 5 spaces up + 5 spaces right.
 
     //This is the proficiency bonus. This is a regular, common bonus shared by everyone.
     int proficiency = 2;
@@ -46,9 +45,17 @@ public class Character{
                                     //i guess using a weapon class is good because 1 weapon should have all the information about itself
                                     //and in the future, this will be convenient for characters who swap weapons.
 
-    Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
-    Character next_turn;            //this is for FightLoop class interaction. sets who should go next. similar to LinkedList iteration.
 
+
+    Team team;  //need to implement this.
+    String life_status = "alive";   //"alive" or "dead". (maybe also "unconscious"?)
+
+    Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
+    Team enemy_team;        //this is used when this kills their enemy, and has to look for their next enemy.
+
+    Character next;            //this is for FightLoop class interaction. sets who should go next. similar to LinkedList iteration.
+    //initiative integer for keeping track in fights.
+    int initiative;// = this.rollInitiative();
 
     Character(String newName){     //constructor.
         name = newName;
@@ -61,7 +68,7 @@ public class Character{
         cha = 0;
 
         hp = 4;
-        ac = 5;
+        ac = 10;
         speed = 5;
 
         weapon = new Weapon("Shortsword"); //Let the shortsword be the default weapon.
@@ -99,6 +106,7 @@ public class Character{
 
     public int rollInitiative(){    //Initiative is used for determining turn order.
         int result = this.roll20() + dex;
+        this.initiative = result;
         return result;
     }
 
@@ -127,8 +135,10 @@ public class Character{
             if(attack_dice == 20) { dealDamage("crit", target, combat_bonus); }        //deal damage method from weapon. different for crit.
             else { dealDamage("", target, combat_bonus); }
         } else {      //else, miss the attack.
-            System.out.println(name + " missed " + target.name);
-            if(attack_dice == 1) { System.out.println(" -haha you fumbled you fool"); }       //if fumbled (the opposite of crit), make fun of attacker.
+            // System.out.println(name + " missed " + target.name);
+            if(attack_dice == 1) {
+                System.out.println(" -haha you fumbled you fool");
+            }       //if fumbled (the opposite of crit), make fun of attacker.
         }
     }//end attack target
 
@@ -141,7 +151,7 @@ public class Character{
         damage += combat_bonus;
 
         target.hp -= damage;
-        System.out.println(name + " hit " + target.name  + " for " + Integer.toString(damage));
+        // System.out.println(name + " hit " + target.name  + " for " + Integer.toString(damage));
 
         return damage;  //don't need to return the damage yet. the damage is already dealt.
     }//end dealDamage()

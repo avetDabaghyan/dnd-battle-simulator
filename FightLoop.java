@@ -1,5 +1,6 @@
-import java.util.*; //for Arrays.
+import java.util.*; //for Arrays. also Random.
 
+//replaced "next_turn" with "next".
 ////
 //for future to-do items, search for "***" and find them in comments.
 //for more information, see Notes section below. (if available)
@@ -14,7 +15,7 @@ import java.util.*; //for Arrays.
 
 //includes: FightLoop class, which is a separate environment for setting up fights.
 public class FightLoop{
-    //decided to just edit Character class to have "enemy" and "next_turn" fields.
+    //decided to just edit Character class to have "enemy" and "next" fields.
 
 
     //making a fight1v1() method, where 2 people roll initiative and take turns
@@ -48,7 +49,7 @@ public class FightLoop{
                 fight_over = true;  //end fight with this boolean switch.
             }else{ //if was not lethal, continue. Move to next turn.
 
-                    active = active.next_turn; //change active character. like a LinkedList!
+                    active = active.next; //change active character. like a LinkedList!
                     turn++;
                     if(active == first_turn){  //if the fight looped back to the first character,
                         round++;                //go to next round.
@@ -68,13 +69,90 @@ public class FightLoop{
 
     }//end fight1v1(p1, p2)
 
+    public void fight2Teams(Team t1, Team t2){
+
+        //set up block
+        ///Initiative   DONE
+        Character chain_head = setup1stTeam(t1, t2);    //vobshm, add MANY comments. please I KNOW you will need them later.
+        chain_head = setupNextTeam(chain_head, t2, t1);
+        Character active = chain_head;
+        Character first_turn = active;  //save who was first in initiative. might be the same as chain_head, idk.
+
+        ///enemies  DONE
+        System.out.println("\n\n");
+        while(active != null){
+            System.out.println(active.name + "\t\t init: " + Integer.toString(active.initiative) + "\t\t fighting: " + active.enemy.name);
+            active = active.next;
+        }//end while
+        active = first_turn;
+
+        //fight block
+        int turn = 1;
+        int round = 1;
+        int max_round = 10;
+        boolean fight_over = false;
+
+        while(!fight_over){
+            //START OF TURN
+            // if(checkTeamStatus(active.enemy_team) == 0){
+            //     System.out.println("VSYO WE WIN");  //mera arden ara
+            //     fight_over = true;
+            //     break;
+            // }
+            if(true){
+                if(active.life_status == "alive"){
+                    //ACTION        //could have all of this as an action function, not a block of code. whatever, let's try first.
+                    if(active.enemy.life_status == "dead"){
+                        active = setNextEnemy(active, active.enemy_team);
+                    }
+                    active.attack(active.enemy);
+                    if(active.enemy.hp <= 0){
+                        System.out.println("r"+round + ":\t "+active.name + " Kills " + active.enemy.name);
+                        active.enemy.life_status = "dead";
+                    }
+                }//end if(alive)
+            }
+
+            //END OF TURN
+            active = active.next;
+            turn++;
+
+            if(active == null){
+                active = first_turn;
+                round++;
+            }
+            if(round >= max_round){
+                System.out.println("VSYO TIME OUT ARA"); //2am coding vibes
+                fight_over = true;
+            }
+
+        }//end while(!fight_over)
+
+        active = first_turn;
+        System.out.println("\n\n Fight results:");
+        while(active != null){
+            System.out.println(active.name + "\t\t init: " + Integer.toString(active.initiative) + "\t\t HP: " + active.hp);
+            active = active.next;
+        }//end while
+        active = first_turn;
+
+
+        //if enemies all dead, win and end fight.
+        //if active is dead, skip turn.
+        //else if active.enemy dead, change enemy
+        //then, active hits enemy.
+        //then, turn++ and round++
+
+    }//end fight2Teams(t1, t2)
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
     public void battlefield1v1(Character p1, Character p2){
         //p1.setLocations(range);
         //p2.setLocations(range);
-
         Character active = setup1v1(p1, p2);
-
-
     }//end battlefield1v1(p1, p2)
 
     public void setLocations(Character p1){
@@ -88,8 +166,8 @@ public class FightLoop{
         p1.enemy = p2;
         p2.enemy = p1;
 
-        p1.next_turn = p2;
-        p2.next_turn = p1;
+        p1.next = p2;
+        p2.next = p1;
 
         Character active;
         if(init1 >= init2){
@@ -99,6 +177,103 @@ public class FightLoop{
         }
         return active;
     }//end setup1v1(p1, p2)
+
+
+    public Character setup1stTeam(Team t1, Team enemy_team){
+        Character chain_head = t1.members[0];
+        chain_head.rollInitiative();
+
+        System.out.println(chain_head.name + "   " + Integer.toString(chain_head.initiative));
+        chain_head = set1stEnemy(chain_head, enemy_team);
+
+        for(int i = 1; i < t1.members.length; i++){
+            Character current = t1.members[i];
+            chain_head = placeCurrentInChain(chain_head, current);
+            current = set1stEnemy(current, enemy_team);
+        }//end for
+
+        return chain_head;
+    }//end setup1Team(Team t1)
+
+    Character setupNextTeam(Character chain_head, Team t2, Team enemy_team){
+        for(int i = 0; i < t2.members.length; i++){
+            Character current = t2.members[i];
+            chain_head = placeCurrentInChain(chain_head, current);
+            current = set1stEnemy(current, enemy_team);
+        }//end for
+
+        return chain_head;
+    }//end setupNextTeam
+
+    Character placeCurrentInChain(Character chain_head,  Character current){
+        // Character current = t1.members[i]
+        current.rollInitiative();
+        System.out.println(current.name + "    " + Integer.toString(current.initiative));
+
+        Character temp = chain_head;
+        if(current.initiative > chain_head.initiative){
+            current.next = chain_head;
+            chain_head = current;
+        }else{
+            while(temp.next != null){
+                if(temp.initiative >= current.initiative && current.initiative > temp.next.initiative){
+                    current.next = temp.next;
+                    temp.next = current;
+                    break;
+                }
+                temp = temp.next;   //step to next.
+            }//end while
+            if(temp.initiative >= current.initiative){  //add comments here. how does it get here, to this IF?
+                temp.next = current;
+            }//end if
+        }//end else
+        //by this point, should have Initiative set in chain.
+
+
+        return chain_head;    //THIS guy's name should! be head or chain_head.
+    }//end placeCurrentInChain
+
+    Character set1stEnemy(Character character, Team enemy_team){
+        character.enemy_team = enemy_team;
+        Random ran = new Random();
+
+        character.enemy = enemy_team.members[ran.nextInt(enemy_team.members.length)];
+        return character;
+    }//end set1stEnemy
+
+    Character setNextEnemy(Character character, Team enemy_team){   //we supply Team enemy_team again, in case the enemy team needs to be changed later idk.
+        //character.enemy_team = enemy_team;
+        Random ran = new Random();
+        List<Character> enemy_choices = new ArrayList<Character>(); //i have no idea how to use ArrayLists. guess time to learn!
+
+        for(int i = 0; i < enemy_team.members.length; i++){
+            if(enemy_team.members[i].life_status == "alive"){
+                enemy_choices.add(enemy_team.members[i]);
+            }
+        }
+
+        if(enemy_choices.size() > 0){
+            character.enemy = enemy_choices.get(ran.nextInt(enemy_choices.size()));
+            return character;
+        }
+        else{
+            return enemy_team.members[0];
+        }
+    }//end setNextEnemy
+
+    int checkTeamStatus(Team team){ //idk maybe combine this and setNextEnemy. 2am is killing me.
+        List<Character> team_survivors = new ArrayList<Character>();
+        int result = 0;
+
+        for(int i = 0; i < team.members.length; i++){
+            if(team.members[i].life_status == "alive"){
+                result++;
+                team_survivors.add(team.members[i]);
+            }
+        }
+
+        return result;
+    }
 
 }//end class FightLoop
 
