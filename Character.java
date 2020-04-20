@@ -57,8 +57,8 @@ public class Character{
     //initiative integer for keeping track in fights.
     int initiative;// = this.rollInitiative();
 
-    Character(String newName){     //constructor.
-        name = newName;
+    Character(String new_name){     //constructor.
+        name = new_name;
         //these are the modifiers, NOT scores.
         str = 0;        //***need to add a rolling way to generate all these scores.
         dex = 0;

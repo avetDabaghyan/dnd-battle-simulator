@@ -17,7 +17,8 @@ public class Team{
         String name;
         Character[] members;
 
-        Team(){
+        Team(String new_name){
+            name = new_name;
         }
 
         public void addMember(Character new_member, int position){

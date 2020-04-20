@@ -39,14 +39,14 @@ public class dnd1{
         Character bob = new Character("Bob");
 
         //setting up teams . . .
-        Team party = new Team();
+        Team party = new Team("Pro Party");
         party.members = new Character[3];
         party.addMember(dredd, 0);
         party.addMember(bob, 1);
         party.addMember(greg, 2);
         //System.out.println(party.members[1].name);
 
-        Team monsters = new Team();
+        Team monsters = new Team("Monster Muggers");
         monsters.members = new Character[5];
         for(int i = 0; i<5;i++){
             monsters.addMember(new Character("Mugger-"+Integer.toString(i)), i);
