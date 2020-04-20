@@ -15,7 +15,7 @@ to-dos:
 ***prepare the Operation "Encounter Balance"
 -how to export data? to json, excel?
 --should be easy to do.
--how to set up teams? need another FightLoop method?
+
 --i guess manual team-setting is okay.
 -how do i UI all this? i'd like a UI for easy team-setting.
 --do this later, get this all working first.
@@ -25,6 +25,7 @@ to-dos:
 
 done - sample to-do 2.
 done - now trying to make a separate way to set up and run 1v1 to-the-death fights.
+done - set up teams. added another FightLoop method, with many supporting methods.
 */
 ////
 
