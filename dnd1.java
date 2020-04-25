@@ -35,7 +35,6 @@ public class dnd1{
 
     public static void main(String[] args) {
         Fighter dredd = new Fighter("Dredd");   //the argument string is for the name attribute.
-
         Fighter greg = new Fighter("Greg");
         Character bob = new Character("Bob");
 
@@ -45,35 +44,29 @@ public class dnd1{
         party.addMember(dredd, 0);
         party.addMember(bob, 1);
         party.addMember(greg, 2);
-        //System.out.println(party.members[1].name);
+
 
         Team monsters = new Team("Monster Muggers");
-        monsters.members = new Character[5];
-        for(int i = 0; i<5;i++){
-            monsters.addMember(new Character("Mugger-"+Integer.toString(i)), i);
-            //System.out.println(monsters.members[i].name);
-        }
+        monsters.members = new Character[1];
+        monsters.addMember(new Character("Boi-0"), 0);
 
-        // System.out.println(greg.name);
-        // greg.rollInitiative();
-        // System.out.println(greg.initiative);
-        // System.out.println(party.members[2].name);
-        // party.members[2].rollInitiative();
-        // System.out.println(party.members[2].initiative);
-        // System.out.println(greg.next);
 
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
+        System.out.println("Beginning fight fight2teams . . .");
+        DataBag data1337 = fight1337.fight2Teams(party, monsters, 3);
 
-        System.out.println("Beginning fight fight2teams");
-        fight1337.fight2Teams(party,monsters);
+        for(FightResult i : data1337.fight_data){
+            System.out.println(i.fight_id);
+        }
 
-        // Random rand = new Random();
-        // for(int i = 0; i < 20; i++){
-        //     System.out.println(rand.nextInt(0));
-        // }
-
-        // System.out.println("begin fightloop! ...");
+        // System.out.println("begin fight1v1 . . .");
         // fight1337.fight1v1(dredd, greg);        //my first FightLoop method.
+
+
+
+
+    }//end main()
+}//end class dnd1
 
 /////////////
         // dredd.healthy();        //dredd tells us how healthy he is.
@@ -92,6 +85,3 @@ public class dnd1{
         // dredd.move(-3, 9);
         // System.out.println(dredd.pos_x);
         // System.out.println(dredd.pos_y);
-
-    }//end main()
-}

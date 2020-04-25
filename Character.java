@@ -29,6 +29,7 @@ public class Character{
     int wis;        //Wisdom
     int cha;        //Charisma
 
+    int max_hp;
     int hp; //HP = health points (or hit points). HP = Constitution + a character's "hit dice" (not used here).
     int ac; //AC = Armor Class. Basically, this is the probability of avoiding attacks. AC = either A. Dexterity + Armor value, or B. Just armor value.
 
@@ -67,7 +68,8 @@ public class Character{
         wis = 0;
         cha = 0;
 
-        hp = 4;
+        max_hp = 4;
+        hp = max_hp;
         ac = 10;
         speed = 5;
 

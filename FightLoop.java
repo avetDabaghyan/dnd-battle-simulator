@@ -33,8 +33,8 @@ public class FightLoop{
         //start fight block.
         int turn = 1;
         int round = 1;
-        Character first_turn = active;  //save who was first in initiative.
-        //***maybe use "String first_turn = active.name" ???
+        Character chain_head = active;  //save who was first in initiative.
+        //***maybe use "String chain_head = active.name" ???
         int max_round = 10;
         boolean fight_over = false;
 
@@ -51,7 +51,7 @@ public class FightLoop{
 
                     active = active.next; //change active character. like a LinkedList!
                     turn++;
-                    if(active == first_turn){  //if the fight looped back to the first character,
+                    if(active == chain_head){  //if the fight looped back to the first character,
                         round++;                //go to next round.
                     }
 
@@ -69,116 +69,30 @@ public class FightLoop{
 
     }//end fight1v1(p1, p2)
 
-    public void fight2Teams(Team t1, Team t2){
+    public DataBag fight2Teams(Team t1, Team t2, int number_of_fights){
+        DataBag collected = new DataBag();
 
         //set up block
-        ///Initiative   DONE
-        Character chain_head = setup1stTeam(t1, t2);    //vobshm, add MANY comments. please I KNOW you will need them later.
-        chain_head = setupNextTeam(chain_head, t2, t1);
-        Character active = chain_head;
-        Character first_turn = active;  //save who was first in initiative. might be the same as chain_head, idk.
+        for(int i = 0; i < number_of_fights; i++){
+            Character chain_head = setup1stTeam(t1, t2);    //vobshm, add MANY comments. please I KNOW you will need them later.
+            chain_head = setupNextTeam(chain_head, t2, t1);
+            Character active = chain_head;
+            // initiativesPrint(active);
 
-        ///enemies  DONE
-        System.out.println("\n\n Initiatives: ");
-        while(active != null){
-            System.out.println(active.name + "\t\t init: " + Integer.toString(active.initiative) + "\t\t fighting: " + active.enemy.name);
-            active = active.next;
-        }//end while
-        active = first_turn;
+            FightResult fight = fightProcessLoop(chain_head, t1, t2, "00" + i);
+            collected.fight_data.add(fight);
+            resetChain(chain_head);
 
-        //fight block
-        int turn = 1;
-        int round = 1;
-        int max_round = 5;
-        boolean fight_over = false;
-
-        System.out.println("\n\n\t\t FIGHT!");
-        while(!fight_over){
-
-            ////////////// START OF TURN
-            int enemy_team_status = checkTeamStatus(active.enemy_team);
-            if(enemy_team_status == 0){
-                System.out.println("VSYO WE WIN");  //mera arden ara
-                fight_over = true;
-                break;
-            }else{
-            // if(true){
-                if(active.life_status == "dead"){
-                    // System.out.println("___i skip. i iz "+active.name + " and "+ active.life_status);
-                }else{
-                    //////////ACTION        //could have all of this as an action function, not a block of code. whatever, let's try first.
-                    if(active.enemy.life_status == "dead"){
-                        active = setNextEnemy(active, active.enemy_team);
-                        // System.out.println("    im "+ active.name + ", i am " + active.life_status + " and i changed target.");
-                    }//end if(enemy.life_status == "dead")
-                    if(active.enemy != null){   //NOW this should not be necessary. because if enemy_team_status == 0, no one is left alive anyway. so this is a precaution???
-                        active.attack(active.enemy);
-                        if(active.enemy.hp <= 0){
-                            // System.out.println("r"+round + ":\t "+active.name + " Kills " + active.enemy.name);
-                            active.enemy.life_status = "dead";
-                        }//if enemy.hp <= 0
-                    }//if enemy != null
-                }//end if(alive)
-            }
-
-/*
-            // //START OF TURN
-            //if(all enemies dead. checkTeamStatus <= 0){
-                skip. idk. just pass?
-            }else{
-                if(active is dead){
-                    skip. maybe pass.
-                }else{
-                    if(enemy is dead){
-                        change enemy to someone who is alive.
-                    }//end if (enemy is dead)
-                    if(has an enemy. enemy != null){
-                        now, attack.
-                        if(attack is lethal){
-                            set them to be dead.
-                        }//end if(attack is lethal)
-                    }//end if (has an enemy)
-                }//end if (active is alive)
-            }//end if (at least 1 enemy alive)
-
-*/
-            //////////END OF TURN
-            active = active.next;
-            turn++;
-
-            if(active == null){
-                // System.out.println("\tI am " + first_turn.name + ", start of initiative.");
-                active = first_turn;
-                round++;
-            }
-            if(round >= max_round){
-                System.out.println("VSYO TIME OUT ARA"); //2am coding vibes
-                fight_over = true;
-            }
-
-        }//end while(!fight_over)
-
-        System.out.println("\n\n Round: " + round + ". Fight results:");
-        active = first_turn;
-        //need a function here. checkWinningTeam or something like that.
-        if(checkTeamStatus(t2) == 0){
-            System.out.println("Winners: " + t1.name);
-        }else if(checkTeamStatus(t1)==0){
-            System.out.println("Winners: " + t2.name);
-        }
-        while(active != null){
-            System.out.println(active.name + "\t\t init: " + Integer.toString(active.initiative) + "\t\t HP: " + active.hp);
-            active = active.next;
-        }//end while
-        active = first_turn;
-
+        }//end for
 
         //if enemies all dead, win and end fight.
         //if active is dead, skip turn.
         //else if active.enemy dead, change enemy
         //then, active hits enemy.
+        //then, if kills enemy, make it dead and add to deaths.
         //then, turn++ and round++
 
+        return collected;
     }//end fight2Teams(t1, t2)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -218,9 +132,9 @@ public class FightLoop{
     public Character setup1stTeam(Team t1, Team enemy_team){
         Character chain_head = t1.members[0];
         chain_head.rollInitiative();
-
         // System.out.println(chain_head.name + "   " + Integer.toString(chain_head.initiative));
         chain_head = set1stEnemy(chain_head, enemy_team);
+
 
         for(int i = 1; i < t1.members.length; i++){
             Character current = t1.members[i];
@@ -287,7 +201,6 @@ public class FightLoop{
                 enemy_choices.add(enemy_team.members[i]);
             }
         }
-
         if(enemy_choices.size() > 0){
             character.enemy = enemy_choices.get(ran.nextInt(enemy_choices.size()));
             return character;
@@ -297,19 +210,108 @@ public class FightLoop{
         }
     }//end setNextEnemy
 
-    int checkTeamStatus(Team team){ //idk maybe combine this and setNextEnemy. 2am is killing me.
-        List<Character> team_survivors = new ArrayList<Character>();
-        int result = 0;
 
-        for(int i = 0; i < team.members.length; i++){
-            if(team.members[i].life_status == "alive"){
-                result++;
-                team_survivors.add(team.members[i]);
+    void initiativesPrint(Character active){
+        System.out.println("\n\n Initiatives: ");
+        while(active != null){
+            System.out.println(active.name + "\t\t init: " + Integer.toString(active.initiative) + "\t\t fighting: " + active.enemy.name);
+            active = active.next;
+        }//end while
+        // active = chain_head;
+    }
+
+    FightResult fightProcessLoop(Character chain_head, Team t1, Team t2, String id){
+        //fight block
+        Character active = chain_head;
+        int turn = 1;
+        int round = 1;
+        int max_round = 5;
+        boolean fight_over = false;
+        FightResult result = new FightResult(id, t1, t2);
+
+        // System.out.println("\n\n\t\t FIGHT!");
+        while(!fight_over){
+        ////could summarise this with 3-4 functions: startOfTurn, action, endOfTurn, etc.
+            ////////////// START OF TURN
+            if(active.enemy_team.checkTeamStatus() == 0){
+                System.out.println("VSYO WE WIN");  //mera arden ara
+                fight_over = true;
+                break;
+            }else{
+            // if(true){
+                if(active.life_status == "dead"){
+                    // System.out.println("___i skip. i iz "+active.name + " and "+ active.life_status);
+                }else{
+
+                    //////////ACTION        //could have all of this as an action function, not a block of code. whatever, let's try first.
+                    if(active.enemy.life_status == "dead"){
+                        active = setNextEnemy(active, active.enemy_team);
+                        // System.out.println("    im "+ active.name + ", i am " + active.life_status + " and i changed target.");
+                    }//end if(enemy.life_status == "dead")
+                    if(active.enemy != null){   //NOW this should not be necessary. because if enemy_team_status == 0, no one is left alive anyway. so this is a precaution???
+                        active.attack(active.enemy);
+                        if(active.enemy.hp <= 0){
+                            // System.out.println("r"+round + ":\t "+active.name + " Kills " + active.enemy.name);
+                            active.enemy.life_status = "dead";
+                            active.enemy.team.deaths++; //this will be passed to FightResult at the end. *** don't know if this is the correct way to handle this.
+                        }//end(if enemy.hp <= 0)
+                    }//end(if enemy != null)
+                }//end if(alive)
+            }//end if(fight not over)
+
+
+            //////////END OF TURN
+            active = active.next;
+            turn++;
+            if(active == null){ //important: if active == null, then it's the end of chain.
+                // System.out.println("\tI am " + chain_head.name + ", start of initiative.");
+                active = chain_head; //therefore, we switch to the 1st turn in initiative.
+                round++;    //also means that 1 round has passed.
             }
-        }
+
+            if(round >= max_round){
+                System.out.println("VSYO TIME OUT ARA"); //2am coding vibes
+                fight_over = true;
+            }
+        }//end while(!fight_over)
+
+        //toggle this printing.
+        // fightEndPrint(chain_head, round, t1, t2);
+
+        result.registerFight(t1, t2, round);
 
         return result;
-    }
+    }//end fightProcessLoop
+
+    void fightEndPrint(Character active, int round, Team t1, Team t2){
+        System.out.println("\n\n Round: " + round + ". Fight results:");
+        // active = chain_head;
+        //need a function here. checkWinningTeam or something like that.
+        if(t2.checkTeamStatus() == 0){
+            System.out.println("Winners: " + t1.name);
+        }else if(t1.checkTeamStatus()==0){
+            System.out.println("Winners: " + t2.name);
+        }
+        while(active != null){
+            System.out.println(active.name + "\t\t init: " + Integer.toString(active.initiative) + "\t\t HP: " + active.hp);
+            active = active.next;
+        }//end while
+        // active = chain_head;
+        // return active;
+    }//end fightEndPrint
+
+    void resetChain(Character current){ //resets everyone's HP and initiative order.
+        if(current.next != null){
+            resetChain(current.next);
+        }
+
+        //yknow, this could be in Character class.
+        current.hp = current.max_hp;    //reset back to full HP
+        current.life_status = "alive";
+        current.next = null;            //break the initiatives, to be set again next fight.
+    }//end resetChain(Character current)
+
+
 
 }//end class FightLoop
 
