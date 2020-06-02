@@ -34,10 +34,10 @@ done - set up teams. added another FightLoop method, with many supporting method
 public class dnd1{
 
     public static void main(String[] args) {
-
+    	//Testing Git from Eclipse
         CharacterCreator creator = new CharacterCreator();
-        // Character dude = creator.newCharacter();
-        // System.out.println(dude.name);
+	    Character dude = creator.newCharacter();
+    	System.out.println(dude.name);
 
         Fighter dredd = new Fighter("Dredd");   //the argument string is for the name attribute.
         Fighter greg = new Fighter("Greg");
