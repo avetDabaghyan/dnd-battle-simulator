@@ -32,7 +32,7 @@ done - set up teams. added another FightLoop method, with many supporting method
 
 //includes: the main class, or driver class.
 public class dnd1{
-
+//Testing git, without Eclipse. 6/2/2020
     public static void main(String[] args) {
 
         CharacterCreator creator = new CharacterCreator();
