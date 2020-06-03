@@ -1,15 +1,14 @@
 import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
-//comments updated on 19/4/2020. replaced "next_turn" with "next".
+
+//comments updated on 3/6/2020. Reordered methods for convenience.
 ////
 //for future to-do items, search for "***" and find them in comments.
 //for more information, see Notes section below. (if available)
 
 //to-dos:
-//***sample to-do.
-//***review the movement methods I added.
-//done - sample to-do 2.
+//none
 ////
 
 
@@ -50,6 +49,7 @@ public class Character{
 
     Team team;  //need to implement this.
     String life_status = "alive";   //"alive" or "dead". (maybe also "unconscious"?)
+    //values: "alive" or "dead".
 
     Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
     Team enemy_team;        //this is used when this kills their enemy, and has to look for their next enemy.
@@ -112,18 +112,12 @@ public class Character{
         return result;
     }
 
-    public void moveTo(int target_x, int target_y){
-        //idk.
-    }//end moveTo(target_x, target_y)
-
-    public void move(int add_x, int add_y){
-        if (Math.abs(add_x) <= speed){
-            pos_x += add_x;
-        }
-        if (Math.abs(add_y) <= speed){
-            pos_y += add_y;
-        }
-    }//end move(add_x, add_y)
+    // / / /
+    //just a silly method for testing 2 character's interaction
+    public void talkTo(Character target){   //argument is Character, which is of non-basic data type.
+        System.out.println("\n        -Hello! My name is " + this.name + ", what is your name?");
+        System.out.println("        -Hi " + this.name + "! I am " + target.name + ". Good weather isn't it? \n");
+    }//end talkTo target
 
     //this attacks target. dice is compared to target's AC. if >= it hits, and deals damage based on weapon.
     public void attack(Character target){
@@ -158,12 +152,19 @@ public class Character{
         return damage;  //don't need to return the damage yet. the damage is already dealt.
     }//end dealDamage()
 
-    //just a silly method for testing 2 character's interaction
-    public void talkTo(Character target){   //argument is Character, which is of non-basic data type.
-        System.out.println("\n        -Hello! My name is " + this.name + ", what is your name?");
-        System.out.println("        -Hi " + this.name + "! I am " + target.name + ". Good weather isn't it? \n");
-    }//end talkTo target
+    // / / / /
+    public void moveTo(int target_x, int target_y){
+        //idk.
+    }//end moveTo(target_x, target_y)
 
+    public void move(int add_x, int add_y){
+        if (Math.abs(add_x) <= speed){
+            pos_x += add_x;
+        }
+        if (Math.abs(add_y) <= speed){
+            pos_y += add_y;
+        }
+    }//end move(add_x, add_y)
 
 
 
@@ -174,7 +175,7 @@ public class Character{
     //     System.out.println(Mike.roll(1,6,0));
     // }//end main
 
-}
+}//end class Character
 
 
 

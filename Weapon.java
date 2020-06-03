@@ -4,8 +4,7 @@
 //for more information, see Notes section below. (if available)
 
 //to-dos:
-//***sample to-do.
-//done - sample to-do 2.
+//none
 ////
 
 //includes: a weapon class that has its own properties.

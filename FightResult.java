@@ -1,6 +1,6 @@
 
 
-
+//please change fight_id to just id.
 
 public class FightResult{
     String fight_id;        //*** where do I use this as a string, and where as an int? hmmm
@@ -12,7 +12,7 @@ public class FightResult{
     int t1_deaths = 0;
     // int team2_size;
     int t2_deaths = 0;
-    int final_round; //need to add this later.
+    int final_round; //just keep this.
 
 
 
@@ -27,11 +27,14 @@ public class FightResult{
 
     void registerFight(Team t1, Team t2, int final_round){
         t1_deaths = t1.deaths;
-        t1.deaths = 0;
+        t1.deaths = 0;//oh, I already reset each team's death here. Good job.
         t2_deaths = t2.deaths;
         t2.deaths = 0;
-
         this.final_round = final_round;
+    }
+
+    void printResultv1(){
+        System.out.println("ID: " + fight_id + "\t Ended at round " + Integer.toString(final_round) + ".\t Team 1: " + t1.name + ", Deaths: " + t1_deaths + "\t Team 2: " + t2.name + ", Deaths: " + t2_deaths);
     }
 
 }//end class FightResult
