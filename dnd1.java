@@ -47,7 +47,7 @@ public class dnd1{
             //i.printResultv1();
         //}
         data1337.printAllResults();
-
+        data1337.calculations();
 
 
         // System.out.println("begin fight1v1 . . .");

@@ -150,6 +150,7 @@ public class FightLoop{
                 System.out.println("VSYO WE WIN");  //mera arden ara
                 fight_over = true;
                 break;
+                //System.out.println("You should NOT see this - fight should be break'd already.");
             }else{
             // if(true){
                 if(active.life_status == "dead"){
