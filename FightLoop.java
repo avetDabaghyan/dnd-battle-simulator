@@ -26,7 +26,8 @@ public class FightLoop{
 
             // initiativesPrint(active);
             FightResult fight = fightProcessLoop(chain_head, t1, t2, "00" + i);
-            fightEndPrint(chain_head, fight.final_round, t1, t2, fight.fight_id);
+            //toggle the print with comment:
+            //fightEndPrint(chain_head, fight.final_round, t1, t2, fight.fight_id);
             data_bag.fight_list.add(fight);
             resetChain(chain_head);
 

@@ -31,8 +31,8 @@ public class DataBag{
 
     public void calculations(){
 
-        int temp_size = fight_list.get(0).t1.members.size();
-        int[] t1_counter = new int[temp_size + 1];  //counter for deaths: 0, 1, 2..., party size.
+        int temp_size1 = fight_list.get(0).t1.members.size();
+        int[] t1_counter = new int[temp_size1 + 1];  //counter for deaths: 0, 1, 2..., party size.
         float t1_avg = 0; //Average number of deaths.
 
         //We don't need to calculate for t2 right now.
@@ -60,6 +60,9 @@ public class DataBag{
         }
         System.out.println(axis);
         System.out.println(t1_results);
+        float tpk_amount = t1_counter[temp_size1];
+        tpk_amount = tpk_amount/fight_list.size();
+        System.out.println("Probability of TPK: " + Float.toString(tpk_amount));
 
     }//end calculations()
 

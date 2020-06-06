@@ -1,6 +1,6 @@
 import java.util.*;  //for random
 
-//v0.0.1. still at this version.
+//v0.1.1! Gotta define version milestones somewhere.
 
 //comments updated on 3/6/2020. Adding CharacterCreator.newFullCharacter usage for calculating.
 //May have a few fight-printing methods that repeat.
@@ -40,13 +40,13 @@ public class dnd1{
 
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
         System.out.println("Beginning fight fight2teams . . .");
-        DataBag data1337 = fight1337.fight2Teams(party, monsters, 3);
+        DataBag data1337 = fight1337.fight2Teams(party, monsters, 2000);
 
         System.out.println("\n\t\t Back in dnd1. ");
         //for(FightResult i : data1337.fight_list){
             //i.printResultv1();
         //}
-        data1337.printAllResults();
+        //data1337.printAllResults();
         data1337.calculations();
 
 
