@@ -133,7 +133,8 @@ public class Character{
         } else {      //else, miss the attack.
             // System.out.println(name + " missed " + target.name);
             if(attack_dice == 1) {
-                System.out.println(" -haha you fumbled you fool");
+                //toggled this.
+                //System.out.println(" -haha you fumbled you fool");
             }       //if fumbled (the opposite of crit), make fun of attacker.
         }
     }//end attack target

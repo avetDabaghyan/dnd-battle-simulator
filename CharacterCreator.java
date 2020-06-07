@@ -20,7 +20,7 @@ public class CharacterCreator{
         return new Character(new_name);
     }//end newCharacter()
 
-    Character newFullCharacter(String name, int str, int dex, int max_hp, int ac, Team team, int weapon_type){
+    Character CreationV1(String name, int str, int dex, int max_hp, int ac, Team team, int weapon_type){
         Character new_char = new Character(name);
 
         // new_char.level = level;

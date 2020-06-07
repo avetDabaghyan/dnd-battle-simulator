@@ -50,7 +50,7 @@ public class DataBag{
         }//end for
 
         System.out.println(t1_avg);
-        System.out.println(t1_avg/fight_list.size());
+        System.out.println(Float.toString(t1_avg/fight_list.size()) + " / " + Integer.toString(temp_size1));
         String axis = "# of deaths: \t";
         int axis_temp = 0;
         String t1_results = "Happened: \t";
@@ -61,8 +61,8 @@ public class DataBag{
         System.out.println(axis);
         System.out.println(t1_results);
         float tpk_amount = t1_counter[temp_size1];
-        tpk_amount = tpk_amount/fight_list.size();
-        System.out.println("Probability of TPK: " + Float.toString(tpk_amount));
+        tpk_amount = (tpk_amount/fight_list.size())*100;
+        System.out.println("Probability of TPK: " + Float.toString(tpk_amount) + " %.");
 
     }//end calculations()
 

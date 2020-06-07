@@ -148,7 +148,7 @@ public class FightLoop{
         ////could summarise this with 3-4 functions: startOfTurn, action, endOfTurn, etc.
             ////////////// START OF TURN
             if(active.enemy_team.checkTeamStatus() == 0){
-                System.out.println("VSYO WE WIN");  //mera arden ara
+                //System.out.println("VSYO WE WIN");  //toggled here too. //mera arden ara
                 fight_over = true;
                 break;
                 //System.out.println("You should NOT see this - fight should be break'd already.");
@@ -185,7 +185,7 @@ public class FightLoop{
             }
 
             if(round >= max_round){
-                System.out.println("VSYO TIME OUT ARA! Final round."); //2am coding vibes
+                //System.out.println("VSYO TIME OUT ARA! Final round."); //toggled here too. //2am coding vibes
                 fight_over = true;
             }
         }//end while(!fight_over)

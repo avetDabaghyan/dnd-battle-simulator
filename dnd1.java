@@ -2,7 +2,7 @@ import java.util.*;  //for random
 
 //v0.1.1! Gotta define version milestones somewhere.
 
-//comments updated on 3/6/2020. Adding CharacterCreator.newFullCharacter usage for calculating.
+//comments updated on 3/6/2020. Adding CharacterCreator.CreationV1 usage for calculating.
 //May have a few fight-printing methods that repeat.
 ////
 ///for future to-do items, search for "***" and find them in comments.
@@ -20,7 +20,7 @@ public class dnd1{
 
         CharacterCreator creator = new CharacterCreator();
         Team players = new Team("Players");
-        Character player1 = creator.newFullCharacter("Robert", 0, 3, 16, 14, players, 10);
+        Character player1 = creator.CreationV1("Robert", 0, 3, 16, 14, players, 10);
 
             System.out.println("Testing over, now regular stuff. ");
 
@@ -35,7 +35,7 @@ public class dnd1{
         party.addMember(greg);
 
         Team monsters = new Team("Monsters grr");
-        Character monster0 = creator.newFullCharacter("Shalu", 2, 3, 58, 13, monsters, 12); //12 weapon die is experimental for now.
+        Character monster0 = creator.CreationV1("Shalu", 2, 3, 58, 13, monsters, 12); //12 weapon die is experimental for now.
 
 
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
