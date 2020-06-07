@@ -15,7 +15,7 @@ public class FightLoop{
 
 
 
-    public DataBag fight2Teams(Team t1, Team t2, int number_of_fights){
+    public DataBag fight2Teams(Team t1, Team t2, int max_rounds, int number_of_fights){
         DataBag data_bag = new DataBag();
 
         //set up block
@@ -25,7 +25,7 @@ public class FightLoop{
             Character active = chain_head;
 
             // initiativesPrint(active);
-            FightResult fight = fightProcessLoop(chain_head, t1, t2, "00" + i);
+            FightResult fight = fightProcessLoop(chain_head, t1, t2, max_rounds, "00" + i);
             //toggle the print with comment:
             //fightEndPrint(chain_head, fight.final_round, t1, t2, fight.fight_id);
             data_bag.fight_list.add(fight);
@@ -134,12 +134,12 @@ public class FightLoop{
     }//end setNextEnemy
     //////
 
-    FightResult fightProcessLoop(Character chain_head, Team t1, Team t2, String id){
+    FightResult fightProcessLoop(Character chain_head, Team t1, Team t2, int max_rounds, String id){
         //fight block
         Character active = chain_head;
         int turn = 1;
         int round = 1;
-        int max_round = 5;
+        int max_round = max_rounds;
         boolean fight_over = false;
         FightResult result = new FightResult(id, t1, t2);
 

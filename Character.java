@@ -2,7 +2,7 @@ import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
 
-//comments updated on 3/6/2020. Reordered methods for convenience.
+//comments updated on 7/6/2020. Added updateStats().
 ////
 //for future to-do items, search for "***" and find them in comments.
 //for more information, see Notes section below. (if available)
@@ -30,6 +30,8 @@ public class Character{
 
     int max_hp;
     int hp; //HP = health points (or hit points). HP = Constitution + a character's "hit dice" (not used here).
+
+    int base_ac;    //this is due to Armor, or Natural armor. Without dexterity.
     int ac; //AC = Armor Class. Basically, this is the probability of avoiding attacks. AC = either A. Dexterity + Armor value, or B. Just armor value.
 
     int pos_x;  //
@@ -70,12 +72,17 @@ public class Character{
 
         max_hp = 4;
         hp = max_hp;
-        ac = 10;
+        base_ac = 10;
         speed = 5;
 
         weapon = new Weapon("Shortsword"); //Let the shortsword be the default weapon.
+
+        updateStats();
     }//end Character constructor
 
+    public void updateStats(){
+        ac = base_ac + dex; //***what if heavy armor? add an if here later.
+    }//end void updateStats()
     //about rolling
     //the format of rolling in DnD books is: XdY + Z, which means "roll Y-sided dice X times, then add Z".
     //e.g. 1d8 + 2 = roll a single 8-sided die and add 2. We get a number in range (3, 10).

@@ -20,7 +20,7 @@ public class CharacterCreator{
         return new Character(new_name);
     }//end newCharacter()
 
-    Character CreationV1(String name, int str, int dex, int max_hp, int ac, Team team, int weapon_type){
+    Character CreationV2(String name, int str, int dex, int max_hp, int base_ac, int weapon_dice, int weapon_type, Team team){
         Character new_char = new Character(name);
 
         // new_char.level = level;
@@ -31,15 +31,17 @@ public class CharacterCreator{
         new_char.max_hp = max_hp;
         new_char.hp = max_hp;
 
-        new_char.ac = ac;
+        new_char.base_ac = base_ac;
+
+        new_char.weapon.dice = weapon_dice;
+        new_char.weapon.type = weapon_type;
 
         new_char.team = team;
         team.addMember(new_char);
-
-        new_char.weapon.type = weapon_type;
-
+        //Finished. Returning...
+        new_char.updateStats();
         return new_char;
-    }
+    }//end CreationV2
 
     void saveCharacter(Character target){
         /*
@@ -56,6 +58,33 @@ public class CharacterCreator{
 
     Character loadCharacter(String name){
         return null;
-    }
+    }//end CreationV2
 
 }//end class CharacterCreator
+
+
+
+
+///////////////Old code
+/*
+Character CreationV1(String name, int str, int dex, int max_hp, int ac, Team team, int weapon_type){
+    Character new_char = new Character(name);
+
+    // new_char.level = level;
+    new_char.str = str;
+    new_char.dex = dex;
+    // new_char.con = con;
+
+    new_char.max_hp = max_hp;
+    new_char.hp = max_hp;
+
+    new_char.ac = ac;
+
+    new_char.team = team;
+    team.addMember(new_char);
+
+    new_char.weapon.type = weapon_type;
+
+    return new_char;
+}//end CreationV1
+*/

@@ -26,7 +26,7 @@ public class DataBag{
         System.out.println(team1);
         System.out.println(team2);
 
-        System.out.println("\n--------\n");
+        //System.out.println("\n--------\n");
     }//end printAllResults()
 
     public void calculations(){
@@ -39,7 +39,6 @@ public class DataBag{
         //temp_size =  fight_list.get(0).t2.members.size();
         //int[] t2_counter = new int[temp_size + 1];
 
-        //ADD HERE calculate this.
         for(FightResult fig : this.fight_list){
             int i = 0;
             while(i != fig.t1_deaths){
@@ -52,10 +51,10 @@ public class DataBag{
         System.out.println(t1_avg);
         System.out.println(Float.toString(t1_avg/fight_list.size()) + " / " + Integer.toString(temp_size1));
         String axis = "# of deaths: \t";
-        int axis_temp = 0;
+        int axis_int = 0;
         String t1_results = "Happened: \t";
         for(int i : t1_counter){
-            axis += Integer.toString(axis_temp++) + "\t";
+            axis += Integer.toString(axis_int++) + "\t";
             t1_results += Integer.toString(i) + "\t";
         }
         System.out.println(axis);
@@ -64,6 +63,7 @@ public class DataBag{
         tpk_amount = (tpk_amount/fight_list.size())*100;
         System.out.println("Probability of TPK: " + Float.toString(tpk_amount) + " %.");
 
+        //System.out.println("\n--------\n");
     }//end calculations()
 
 }//end class DataBag

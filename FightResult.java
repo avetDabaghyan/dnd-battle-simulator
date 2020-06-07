@@ -12,7 +12,7 @@ public class FightResult{
     int t1_deaths = 0;
     // int team2_size;
     int t2_deaths = 0;
-    int final_round; //just keep this.
+    int final_round;
 
 
 
@@ -27,7 +27,7 @@ public class FightResult{
 
     void registerFight(Team t1, Team t2, int final_round){
         t1_deaths = t1.deaths;
-        t1.deaths = 0;//oh, I already reset each team's death here. Good job.
+        t1.deaths = 0; //oh, I already reset each team's death here. Good job.
         t2_deaths = t2.deaths;
         t2.deaths = 0;
         this.final_round = final_round;

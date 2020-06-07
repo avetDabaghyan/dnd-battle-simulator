@@ -19,8 +19,9 @@ public class Fighter extends Character{
         super(newName);   //get everything that a regular Character has. Argument is name attribute.
         this.max_hp = 12;
         this.hp = this.max_hp;
-        this.ac = 16;   //have to figure out fighter standard values later.
+        this.base_ac = 16;   //have to figure out fighter standard values later.
         army++;     //army += 1 whenever a Fighter is created.
+        updateStats();
     }
 
     public void healthy(){      //method for keeping track of current HP.
