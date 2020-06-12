@@ -1,10 +1,7 @@
 
 ////
-//for future to-do items, search for "***" and find them in comments.
-//for more information, see Notes section below. (if available)
-
-//to-dos:
-//none
+///for future to-do items, search for words such as *** , ADD , note .
+///for more information, see Notes section below. (if available)
 ////
 
 //includes: a weapon class that has its own properties.

@@ -1,50 +1,47 @@
-import java.util.*;  //for random
+import java.util.*;  //for random, for ArrayList, for maybe other things I don't know about.
+import java.lang.Math;
 
-//v0.1.2! Actually used my code to estimate for our game... horribly. 0.1% of TPK was false, it was actually 32%.
-//Gotta define version milestones somewhere.
-
-//comments updated on 3/6/2020. Adding CharacterCreator.CreationV1 usage for calculating.
-//May have a few fight-printing methods that repeat.
+// v0.1.3 - Updated comment structures.
+// 12/6/2020. Added a big project card in Trello.
+// 13?/6/2020.
 ////
-///for future to-do items, search for "***" and find them in comments.
+///for future to-do items, search for words such as *** , ADD , note .
 ///for more information, see Notes section below. (if available)
 
-//to-dos:
-//none
+//***note: I can change the enemy-selecting from
+//"random enemy, until killed, then random enemy" to "always attack whoever has highest HP" (or lowest),
+//this can simulate DM's behaviour as well.
+//***then: (maybe after error estimation) compare the TPK chance for each attacking behaviour.
 ////
 
-
+//--------------------------
 //includes: the main class, or driver class.
 public class dnd1{
 
     public static void main(String[] args) {
         System.out.println("\n--------\n");
 
+        // players.alive = players.members;
+        // System.out.println(players.alive.get(1).name);
+        // players.alive.remove(1);
+        // System.out.println(players.alive.get(1).name); //yup, no empty gaps left. good!
         //System.out.println("Testing over, now regular stuff. ");
+
         CharacterCreator creator = new CharacterCreator();
         Team players = new Team("Players");
-        Character player1 = creator.CreationV2("Robert", -1, 3, 18, 14, 3, 4, players);
-        Character player2 = creator.CreationV2("Edgar", 2, 1, 31, 16, 1, 12, players);
-        Character player3 = creator.CreationV2("Hayk", 3, 0, 28, 19, 1, 10, players);
-        Character player4 = creator.CreationV2("Tigran", -1, 2, 21, 11, 1, 10, players);
-
-        Fighter dredd = new Fighter("Dredd");   //the argument string is for the name attribute.
-        Fighter greg = new Fighter("Greg");
-        Character bob = new Character("Bob");
-
-        //setting up teams . . .
-        Team party = new Team("Pro Party");
-        party.addMember(dredd);
-        party.addMember(bob);
-        party.addMember(greg);
-
         Team monsters = new Team("Monsters grr");
-        Character monster0 = creator.CreationV2("Werewolf", 2, 5, 105, 11, 2, 12, monsters); //12 weapon die is experimental for now.
+
+        Character player0 = creator.CreationV2("Robert", -1, 3, 18, 14, 3, 4, players);
+        Character player1 = creator.CreationV2("Edgar", 2, 1, 31, 16, 1, 12, players);
+        Character player2 = creator.CreationV2("Hayk", 3, 0, 28, 19, 1, 10, players);
+        Character player3 = creator.CreationV2("Tigran", -1, 2, 21, 11, 1, 10, players);
+
+        Character monster0 = creator.CreationV2("Werewolf", 2, 5, 105, 11, 2, 8, monsters); //12 weapon die is experimental for now.
 
 
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
         //System.out.println("Beginning fight fight2teams . . .");
-        DataBag data1337 = fight1337.fight2Teams(players, monsters, 30, 100000);
+        DataBag data1337 = fight1337.fight2Teams(players, monsters, 30, Math.pow(10, 5));
 
         //System.out.println("\n\t\t Back in dnd1. ");
         //for(FightResult i : data1337.fight_list){
@@ -53,13 +50,6 @@ public class dnd1{
         //data1337.printAllResults();
         data1337.calculations();
 
-        //***note: I can change the enemy-selecting from
-        //"random enemy, until killed, then random enemy" to "always attack whoever has highest HP" (or lowest),
-        //this can simulate DM's behaviour as well.
-        //***then: (maybe after error estimation) compare the TPK chance for each attacking behaviour.
-    ////NO. Stop. Take a break. Stop coding. Return to this in a few days.
-    ////Return to this on:
-    ////11.6.2020
 
 
         System.out.println("\n--------\n");
@@ -86,3 +76,13 @@ public class dnd1{
         // dredd.move(-3, 9);
         // System.out.println(dredd.pos_x);
         // System.out.println(dredd.pos_y);
+
+        // Fighter dredd = new Fighter("Dredd");   //the argument string is for the name attribute.
+        // Fighter greg = new Fighter("Greg");
+        // Character bob = new Character("Bob");
+        //
+        // //setting up teams . . .
+        // Team party = new Team("Pro Party");
+        // party.addMember(dredd);
+        // party.addMember(bob);
+        // party.addMember(greg);

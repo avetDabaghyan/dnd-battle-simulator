@@ -2,12 +2,9 @@
 
 //comments updated on 11/1/2020
 ////
-//for future to-do items, search for "***" and find them in comments.
-//for more information, see Notes section below. (if available)
+///for future to-do items, search for words such as *** , ADD , note .
+///for more information, see Notes section below. (if available)
 
-//to-dos:
-//***sample to-do.
-//done - sample to-do 2.
 ////
 //includes: a DnD class Fighter. Parent is Character class because we need all the methods and fields that a regular person/character has.
 //however, different classes will have different fields or additional methods. The first one I made is the Fighter.

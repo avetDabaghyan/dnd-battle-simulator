@@ -1,7 +1,11 @@
 import java.util.*; //for Scanner
 
-//27.4.2020 - I wanna do this with JSON. Gonna start using an actual IDE first. Probably Eclipse.
-//2.6.2020 - Nope, not gonna use Eclipse, not now.
+///for future to-do items, search for words such as *** , ADD , note .
+//for more information, see Notes section below. (if available)
+
+
+//includes: a place to quickly assign stats and create Characters.
+//ADD Saving and loading characters from an external file.
 public class CharacterCreator{
     // ***maybe use a database thing, like XML or SQL, instead of JSON? table-based data would be much more convenient to know for future.
 
@@ -14,7 +18,6 @@ public class CharacterCreator{
     Character newCharacter(){
         System.out.println("Enter name for character: ");
         String new_name = sc.nextLine();
-
 
         //maybe set up quick template selections? like choose class Fighter, choose weapon, etc.
         return new Character(new_name);
@@ -52,7 +55,6 @@ public class CharacterCreator{
 
         Loading:
             - search by name. OR by player name. OR by ID.
-
         */
     }
 

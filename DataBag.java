@@ -1,7 +1,10 @@
 import java.util.*;
 //this is for carrying all the FightResults.
 
+///for future to-do items, search for words such as *** , ADD , note .
+//for more information, see Notes section below. (if available)
 
+//includes: an ArrayList of FightResults, and the printing and calculating methods for the collection of FightResults.
 public class DataBag{
     String bag_id;
     List<FightResult> fight_list = new ArrayList<FightResult>();

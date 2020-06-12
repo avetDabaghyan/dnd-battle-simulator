@@ -1,6 +1,10 @@
 
+////
+///for future to-do items, search for words such as *** , ADD , note .
+///for more information, see Notes section below. (if available)
+////
 
-//please change fight_id to just id.
+//***please change fight_id to just id.
 
 public class FightResult{
     String fight_id;        //*** where do I use this as a string, and where as an int? hmmm

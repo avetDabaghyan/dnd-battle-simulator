@@ -2,13 +2,11 @@ import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
 
-//comments updated on 7/6/2020. Added updateStats().
+// 7/6/2020. Added updateStats().
+// 12/6/2020. Something.
 ////
-//for future to-do items, search for "***" and find them in comments.
-//for more information, see Notes section below. (if available)
-
-//to-dos:
-//none
+///for future to-do items, search for words such as *** , ADD , note .
+///for more information, see Notes section below. (if available)
 ////
 
 

@@ -1,21 +1,19 @@
 import java.util.*; //for Arrays. also Random.
 
 ////
-//for future to-do items, search for "***" and find them in comments.
+///for future to-do items, search for words such as *** , ADD , note .
 //for more information, see Notes section below. (if available)
 
-//to-dos:
-//none
 ////
 
 
-//includes: FightLoop class, which is a separate environment for setting up fights.
+//includes: FightLoop class, a separate environment for setting up fights.
 public class FightLoop{
     //decided to just edit Character class to have "enemy" and "next" fields.
 
 
 
-    public DataBag fight2Teams(Team t1, Team t2, int max_rounds, int number_of_fights){
+    public DataBag fight2Teams(Team t1, Team t2, int max_rounds, double number_of_fights){
         DataBag data_bag = new DataBag();
 
         //set up block

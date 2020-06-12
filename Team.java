@@ -1,18 +1,17 @@
 import java.util.*; //for Arrays.
 
 ////
-///for future to-do items, search for "***" and find them in comments.
+///for future to-do items, search for words such as *** , ADD , note .
 ///for more information, see Notes section below. (if available)
-
-//to-dos:
-//none
 ////
 
 
+//--------------------------------
+//includes: an ArrayList of Characters. 
 public class Team{
         String name;
         List<Character> members = new ArrayList<Character>();
-        // List<Character> alive = new ArrayList<Character>();
+        List<Character> alive = new ArrayList<Character>();
         int deaths = 0;
 
         Team(String new_name){
