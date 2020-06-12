@@ -1,7 +1,7 @@
 import java.util.*;  //for random, for ArrayList, for maybe other things I don't know about.
 import java.lang.Math;
 
-// v0.1.3 - Updated comment structures.
+// v0.1.3 - Updated comment structures. / Updated fight_id -> id, checkTeamStatus(), setNextEnemy().
 // 12/6/2020. Added a big project card in Trello.
 // 13?/6/2020.
 ////

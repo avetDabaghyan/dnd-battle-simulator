@@ -7,7 +7,7 @@ import java.util.*; //for Arrays.
 
 
 //--------------------------------
-//includes: an ArrayList of Characters. 
+//includes: an ArrayList of Characters.
 public class Team{
         String name;
         List<Character> members = new ArrayList<Character>();
@@ -22,19 +22,24 @@ public class Team{
             //maybe use appending, instead of position? idk.
 
             this.members.add(new_member);
-            // this.alive.add(new_member); //doing the same thing for Alive Members list.
+            this.alive.add(new_member); //doing the same thing for Alive Members list.
             new_member.team = this;
         }//end addMember()
 
+        //This is for removing a team member from the Alive list.
+        public void killMember(Character target){
+            int i = 0;
+            while(alive.get(i).name != target.name){
+                // System.out.println(alive.get(i).name);
+                i++;
+            }//end while
+            alive.remove(i);
+
+            deaths++; //this will be passed to FightResult at the end. *** don't know if this is the correct way to handle this.
+        }//end killMember
+
         public int checkTeamStatus(){ //idk maybe combine this and setNextEnemy. 2am is killing me.
             //returns number of ALIVE people in Team.
-            List<Character> alive = new ArrayList<Character>();
-            for(int i = 0; i < members.size(); i++){
-                if(members.get(i).life_status == "alive"){
-                    alive.add(members.get(i));
-                }
-            }
-
             return alive.size();
         }//end checkTeamStatus()
 
@@ -49,6 +54,24 @@ public class Team{
         public void resetTeam(){
             //maybe cycle and reset each member's HP and Next? or keep that in resetChain? hmm
             this.deaths = 0;
-        }
+
+            //Going to manually clone members to alive.
+            alive.clear();
+            for(int i = 0; i < (members.size()); i++){
+                alive.add(members.get(i));
+            }
+
+            // for(int i = 0; i < alive.size(); i++){
+            //     System.out.println("I am alive: " + alive.get(i).name);
+            // }
+        }//end resetTeam()
+
+        // //unused right now.
+        // void setEnemyTeam(Team target){
+        //     for (int i = 0; i < members.size(); i++){
+        //         members.get(i).enemy_team = target;
+        //     }
+        // }//end setEnemyTeam()
+
 
 }//end class Team

@@ -81,11 +81,8 @@ public class Character{
     public void updateStats(){
         ac = base_ac + dex; //***what if heavy armor? add an if here later.
     }//end void updateStats()
-    //about rolling
-    //the format of rolling in DnD books is: XdY + Z, which means "roll Y-sided dice X times, then add Z".
-    //e.g. 1d8 + 2 = roll a single 8-sided die and add 2. We get a number in range (3, 10).
-    //this method: roll(X, Y, Z) = XdY + Z
-    //e.g. roll(1,8,2) = 1d8+2
+
+
     public int roll(int amount, int type, int modifier){        //dice roller.
         Random ran = new Random();
         int result = 0;
@@ -189,14 +186,20 @@ public class Character{
 
 /////////////////////////////////////////////
 //Notes
-//
+
 //Proficiency bonus is applied if the character is proficient in what they are doing.
 //In this case, it is usually applied when attacking.
 //Level 1 characters have Proficiency = +2. Higher level characters have higher Proficiency (but that doesn't scale linearly, see DnD PHB).
-//
+
 //in DnD, there are 2 representations of attributes: score and modifier.
 //Scores are generally used to generate the modifiers.
 //Modifier = 0 means average. They can be in range (-5, +5), sometimes higher.
 //usually, we'll use modifiers in range (-2, +4). these are commonly seen in games.
-//
+
 //the number range of roll(X,Y,Z) = (X + Z, X*Y + Z)
+
+//about rolling
+//the format of rolling in DnD books is: XdY + Z, which means "roll Y-sided dice X times, then add Z".
+//e.g. 1d8 + 2 = roll a single 8-sided die and add 2. We get a number in range (3, 10).
+//this method: roll(X, Y, Z) = XdY + Z
+//e.g. roll(1,8,2) = 1d8+2

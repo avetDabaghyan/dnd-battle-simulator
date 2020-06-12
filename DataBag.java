@@ -59,10 +59,11 @@ public class DataBag{
         for(int i : t1_counter){
             axis += Integer.toString(axis_int++) + "\t";
             t1_results += Integer.toString(i) + "\t";
-        }
+        }//end for
+
         System.out.println(axis);
         System.out.println(t1_results);
-        float tpk_amount = t1_counter[temp_size1];
+        float tpk_amount = t1_counter[temp_size1];  //by taking the size, we take the item at the end of the array. In this case, the number where everyone dies.
         tpk_amount = (tpk_amount/fight_list.size())*100;
         System.out.println("Probability of TPK: " + Float.toString(tpk_amount) + " %.");
 

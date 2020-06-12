@@ -25,10 +25,10 @@ public class FightLoop{
             // initiativesPrint(active);
             FightResult fight = fightProcessLoop(chain_head, t1, t2, max_rounds, "00" + i);
             //toggle the print with comment:
-            //fightEndPrint(chain_head, fight.final_round, t1, t2, fight.fight_id);
+            //fightEndPrint(chain_head, fight.final_round, t1, t2, fight.id);
             data_bag.fight_list.add(fight);
-            resetChain(chain_head);
 
+            resetChain(chain_head);
             t1.resetTeam(); //new addition. gotta reset death count for next fight.
             t2.resetTeam();
         }//end for
@@ -51,13 +51,13 @@ public class FightLoop{
         Character chain_head = t1.members.get(0);
         chain_head.rollInitiative();
         // System.out.println(chain_head.name + "   " + Integer.toString(chain_head.initiative));
-        chain_head = set1stEnemy(chain_head, enemy_team);
+        chain_head = setNextEnemy(chain_head, enemy_team);
 
 
         for(int i = 1; i < t1.members.size(); i++){
             Character current = t1.members.get(i);
             chain_head = placeCurrentInChain(chain_head, current);
-            current = set1stEnemy(current, enemy_team);
+            current = setNextEnemy(current, enemy_team);
         }//end for
 
         return chain_head;
@@ -67,7 +67,7 @@ public class FightLoop{
         for(int i = 0; i < t2.members.size(); i++){
             Character current = t2.members.get(i);
             chain_head = placeCurrentInChain(chain_head, current);
-            current = set1stEnemy(current, enemy_team);
+            current = setNextEnemy(current, enemy_team);
         }//end for
 
         return chain_head;
@@ -102,34 +102,17 @@ public class FightLoop{
         return chain_head;    //THIS guy's name should be head or chain_head.
     }//end placeCurrentInChain
 
-    Character set1stEnemy(Character character, Team enemy_team){
-        character.enemy_team = enemy_team;
-        Random ran = new Random();
-
-        character.enemy = enemy_team.members.get(ran.nextInt(enemy_team.members.size()));
-        return character;
-    }//end set1stEnemy
-
     Character setNextEnemy(Character character, Team enemy_team){   //we supply Team enemy_team again? in case the enemy team needs to be changed later??? idk.
-        //***ADD: Make enemy_choices or (t1_choices/t2_choices) a variable to pass around during the fight. So that you don't calculate it again and again.
+        //done: Make enemy_choices or (t1_choices/t2_choices) a variable to pass around during the fight. So that you don't calculate it again and again. / Now, team.alive is used.
+        character.enemy_team = enemy_team;
 
-        //character.enemy_team = enemy_team; //set1stEnemy already set the enemy team.
-        Random ran = new Random();
-        List<Character> enemy_choices = new ArrayList<Character>(); //i have no idea how to use ArrayLists. guess time to learn!
-
-        for(int i = 0; i < enemy_team.members.size(); i++){
-            if(enemy_team.members.get(i).life_status == "alive"){
-                enemy_choices.add(enemy_team.members.get(i));
-            }
-        }
-        if(enemy_choices.size() > 0){
-            character.enemy = enemy_choices.get(ran.nextInt(enemy_choices.size()));
+        if(character.enemy_team.checkTeamStatus() == 0){ return null; } else{
+            Random ran = new Random();
+            character.enemy = enemy_team.alive.get(ran.nextInt(enemy_team.alive.size()));
             return character;
         }
-        else{
-            return null;
-        }
     }//end setNextEnemy
+
     //////
 
     FightResult fightProcessLoop(Character chain_head, Team t1, Team t2, int max_rounds, String id){
@@ -155,18 +138,17 @@ public class FightLoop{
                 if(active.life_status == "dead"){
                     // System.out.println("___i skip. i iz "+active.name + " and "+ active.life_status);
                 }else{
-
                     //////////ACTION        //could have all of this as an action function, not a block of code. whatever, let's try first.
                     if(active.enemy.life_status == "dead"){
-                        active = setNextEnemy(active, active.enemy_team);
+                        active = setNextEnemy(active, active.enemy_team); //note: this must NOT get an error! this will be an error if all of enemy_team is dead. But we earlier check that: if they were dead, the fight_over would trigger.
                         // System.out.println("    im "+ active.name + ", i am " + active.life_status + " and i changed target.");
                     }//end if(enemy.life_status == "dead")
-                    if(active.enemy != null){   //NOW this should not be necessary. because if enemy_team_status == 0, no one is left alive anyway. so this is a precaution???
+                    if(active.enemy != null){   //note NOW this should not be necessary. because if enemy_team_status == 0, no one is left alive anyway. so this is a precaution???
                         active.attack(active.enemy);
                         if(active.enemy.hp <= 0){
                             // System.out.println("r"+round + ":\t "+active.name + " Kills " + active.enemy.name);
                             active.enemy.life_status = "dead";
-                            active.enemy.team.deaths++; //this will be passed to FightResult at the end. *** don't know if this is the correct way to handle this.
+                            active.enemy.team.killMember(active.enemy);
                         }//end(if enemy.hp <= 0)
                     }//end(if enemy != null)
                 }//end if(alive)
@@ -349,6 +331,14 @@ public class FightLoop{
     // }//end class Combatant
 
 
+    //////We no longer need set1stEnemy, as setNextEnemy already works for all cases (1st and n-th setting)
+    // Character set1stEnemy(Character character, Team enemy_team){
+    //     character.enemy_team = enemy_team;
+    //     Random ran = new Random();
+    //
+    //     character.enemy = enemy_team.members.get(ran.nextInt(enemy_team.members.size()));
+    //     return character;
+    // }//end set1stEnemy
 
     //
 //end class FightLoop

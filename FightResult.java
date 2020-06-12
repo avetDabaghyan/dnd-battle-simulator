@@ -4,10 +4,10 @@
 ///for more information, see Notes section below. (if available)
 ////
 
-//***please change fight_id to just id.
+//done: please change fight_id to just id.
 
 public class FightResult{
-    String fight_id;        //*** where do I use this as a string, and where as an int? hmmm
+    String id;        //*** where do I use this as a string, and where as an int? hmmm
 
     Team t1;
     Team t2;
@@ -21,7 +21,7 @@ public class FightResult{
 
 
     FightResult(String id, Team t1, Team t2){
-        fight_id = id;
+        this.id = id;
         this.t1 = t1;
         this.t2 = t2;
         // team1_size = t1.members.length;   //with Array. might need to change with ArrayList.
@@ -38,7 +38,7 @@ public class FightResult{
     }
 
     void printResultv1(){
-        System.out.println("ID: " + fight_id + "\t Ended at round " + Integer.toString(final_round) + ".\t Team 1: " + t1.name + ", Deaths: " + t1_deaths + "\t Team 2: " + t2.name + ", Deaths: " + t2_deaths);
+        System.out.println("ID: " + this.id + "\t Ended at round " + Integer.toString(final_round) + ".\t Team 1: " + t1.name + ", Deaths: " + t1_deaths + "\t Team 2: " + t2.name + ", Deaths: " + t2_deaths);
     }
 
 }//end class FightResult
