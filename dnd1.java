@@ -36,7 +36,7 @@ public class dnd1{
         Character player2 = creator.CreationV2("Hayk", 3, 0, 28, 19, 1, 10, players);
         Character player3 = creator.CreationV2("Tigran", -1, 2, 21, 11, 1, 10, players);
 
-        Character monster0 = creator.CreationV2("Werewolf", 2, 5, 105, 11, 2, 8, monsters); //12 weapon die is experimental for now.
+        Character monster0 = creator.CreationV2("Werewolf", 2, 5, 105, 11, 2, 10, monsters); //12 weapon die is experimental for now.
 
 
         FightLoop fight1337 = new FightLoop();  //separate classes and methods for fight management.
