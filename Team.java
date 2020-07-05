@@ -29,7 +29,7 @@ public class Team{
             }//end while
             alive.remove(i);
 
-            deaths++; //this will be passed to FightResult at the end. *** don't know if this is the correct way to handle this.
+            deaths++; //this will be passed to FightResult at the end. ***don't know if this is the correct way to handle this.
         }//end killMember
 
         public int checkTeamStatus(){ //idk maybe combine this and setNextEnemy. 2am is killing me.
@@ -52,7 +52,11 @@ public class Team{
             //Going to manually clone members to alive.
             alive.clear();
             for(int i = 0; i < (members.size()); i++){
-                alive.add(members.get(i));
+                Character current = members.get(i);
+                current.hp = current.max_hp;
+                current.life_status = "alive";
+                current.next = null;
+                alive.add(current);
             }
 
             // for(int i = 0; i < alive.size(); i++){

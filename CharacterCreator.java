@@ -11,7 +11,7 @@ public class CharacterCreator{
 
     }
 
-    Character newCharacter(){
+    public Character newCharacter(){
         System.out.println("Enter name for character: ");
         String new_name = sc.nextLine();
 
@@ -19,7 +19,8 @@ public class CharacterCreator{
         return new Character(new_name);
     }//end newCharacter()
 
-    Character CreationV2(String name, int str, int dex, int max_hp, int base_ac, int weapon_dice, int weapon_type, Team team){
+    //***do I need to make these methods public? I got a java.lang.IllegalAccessError, so trying to fix.
+    public Character CreationV2(String name, int str, int dex, int max_hp, int base_ac, int weapon_dice, int weapon_type, Team team){
         Character new_char = new Character(name);
 
         // new_char.level = level;

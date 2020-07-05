@@ -8,22 +8,22 @@ public class FightLoop{
 
 
 
-    public DataBag fight2Teams(Team t1, Team t2, int max_rounds, double number_of_fights){
+    public DataBag fight2Teams(Team t1, Team t2, int max_rounds, double number_of_fights, String enemy_select){
         DataBag data_bag = new DataBag();
 
         //set up block
         for(int i = 0; i < number_of_fights; i++){
-            Character chain_head = setup1stTeam(t1, t2);    //vobshm, add MANY comments. please I KNOW you will need them later.
-            chain_head = setupNextTeam(chain_head, t2, t1);
+            Character chain_head = setup1stTeam(t1, t2, enemy_select);    //vobshm, add MANY comments. please I KNOW you will need them later.
+            chain_head = setupNextTeam(chain_head, t2, t1, enemy_select);
             Character active = chain_head;
 
             // initiativesPrint(active);
-            FightResult fight = fightProcessLoop(chain_head, t1, t2, max_rounds, "00" + i);
+            FightResult fight = fightProcessLoop(chain_head, t1, t2, max_rounds, "00" + i, enemy_select);
             //toggle the print with comment:
             //fightEndPrint(chain_head, fight.final_round, t1, t2, fight.id);
             data_bag.fight_list.add(fight);
 
-            resetChain(chain_head);
+            //resetChain(chain_head); not used for now. (5/7/2020 recursion error)
             t1.resetTeam(); //new addition. gotta reset death count for next fight.
             t2.resetTeam();
         }//end for
@@ -43,27 +43,27 @@ public class FightLoop{
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
     //////
-    public Character setup1stTeam(Team t1, Team enemy_team){
+    public Character setup1stTeam(Team t1, Team enemy_team, String enemy_select){
         Character chain_head = t1.members.get(0);
         chain_head.rollInitiative();
         // System.out.println(chain_head.name + "   " + Integer.toString(chain_head.initiative));
-        chain_head = setNextEnemy(chain_head, enemy_team);
+        chain_head = setNextEnemy(chain_head, enemy_team, enemy_select);
 
 
         for(int i = 1; i < t1.members.size(); i++){
             Character current = t1.members.get(i);
             chain_head = placeCurrentInChain(chain_head, current);
-            current = setNextEnemy(current, enemy_team);
+            current = setNextEnemy(current, enemy_team, enemy_select);
         }//end for
 
         return chain_head;
     }//end setup1Team(Team t1)
 
-    Character setupNextTeam(Character chain_head, Team t2, Team enemy_team){
+    Character setupNextTeam(Character chain_head, Team t2, Team enemy_team, String enemy_select){
         for(int i = 0; i < t2.members.size(); i++){
             Character current = t2.members.get(i);
             chain_head = placeCurrentInChain(chain_head, current);
-            current = setNextEnemy(current, enemy_team);
+            current = setNextEnemy(current, enemy_team, enemy_select);
         }//end for
 
         return chain_head;
@@ -98,20 +98,45 @@ public class FightLoop{
         return chain_head;    //THIS guy's name should be head or chain_head.
     }//end placeCurrentInChain
 
-    Character setNextEnemy(Character character, Team enemy_team){   //we supply Team enemy_team again? in case the enemy team needs to be changed later??? idk.
-        //done: Make enemy_choices or (t1_choices/t2_choices) a variable to pass around during the fight. So that you don't calculate it again and again. / Now, team.alive is used.
+    Character setNextEnemy(Character character, Team enemy_team, String enemy_select){   //we supply Team enemy_team again? in case the enemy team needs to be changed later??? idk.
+        //done: Make enemy_choices or (t1_choices/t2_choices) a variable to pass around during the fight. So that you don't calculate it again and again. / Now, enemy_team.alive is used.
         character.enemy_team = enemy_team;
 
-        if(character.enemy_team.checkTeamStatus() == 0){ return null; } else{
-            Random ran = new Random();
-            character.enemy = enemy_team.alive.get(ran.nextInt(enemy_team.alive.size()));
-            return character;
-        }
+        if(character.enemy_team.checkTeamStatus() == 0){
+            return null; //this is important, because if there are no enemies left, character will wait until next turn (for victory).
+        } else{
+            if(enemy_select == "random"){
+                Random ran = new Random();
+                character.enemy = enemy_team.alive.get(ran.nextInt(enemy_team.alive.size()));
+                return character;
+            }//end if "random"
+            else if(enemy_select == "highest hp" || enemy_select == "lowest hp"){
+                Character target = enemy_team.alive.get(0);
+                // for (Character char : character.enemy_team.alive){ //*** why does this not work?? It worked in DataBag.calculations().
+                //     if(char.hp > target.hp){
+                //         target = char;
+                //     }
+                // }
+                for(int i = 0; i < enemy_team.checkTeamStatus(); i++){
+                    if(enemy_select == "highest hp"){
+                        if(enemy_team.alive.get(i).hp > target.hp){ target = enemy_team.alive.get(i); }
+                    } else if(enemy_select == "lowest hp"){ //end "highest hp"
+                        if(enemy_team.alive.get(i).hp < target.hp){ target = enemy_team.alive.get(i); }
+                    } //end "lowest hp"
+                }//end for
+
+                character.enemy = target;
+                // System.out.println("hopa " + target.name);
+                return character;
+            }//end if "highest hp"
+
+            else {return null;}
+        }//end if (checkTeamStatus() == 0) {} else
     }//end setNextEnemy
 
     //////
 
-    FightResult fightProcessLoop(Character chain_head, Team t1, Team t2, int max_rounds, String id){
+    FightResult fightProcessLoop(Character chain_head, Team t1, Team t2, int max_rounds, String id, String enemy_select){
         //fight block
         Character active = chain_head;
         int turn = 1;
@@ -136,7 +161,7 @@ public class FightLoop{
                 }else{
                     //////////ACTION        //could have all of this as an action function, not a block of code. whatever, let's try first.
                     if(active.enemy.life_status == "dead"){
-                        active = setNextEnemy(active, active.enemy_team); //note: this must NOT get an error! this will be an error if all of enemy_team is dead. But we earlier check that: if they were dead, the fight_over would trigger.
+                        active = setNextEnemy(active, active.enemy_team, enemy_select); //note: this must NOT get an error! this will be an error if all of enemy_team is dead. But we earlier check that: if they were dead, the fight_over would trigger.
                         // System.out.println("    im "+ active.name + ", i am " + active.life_status + " and i changed target.");
                     }//end if(enemy.life_status == "dead")
                     if(active.enemy != null){   //note NOW this should not be necessary. because if enemy_team_status == 0, no one is left alive anyway. so this is a precaution???
@@ -208,6 +233,8 @@ public class FightLoop{
         current.life_status = "alive";
         current.next = null;            //break the initiatives, to be set again next fight.
     }//end resetChain(Character current)
+
+
 
     ////Here we start 1v1 methods.      ----------------------------------------------------------
 

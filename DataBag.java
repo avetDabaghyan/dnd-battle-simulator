@@ -67,7 +67,7 @@ public class DataBag{
         tpk_amount = (tpk_amount/fight_list.size())*100;
         System.out.println("Probability of TPK: " + Float.toString(tpk_amount) + " %.");
 
-        //System.out.println("\n--------\n");
+        System.out.println("\n--------\n");
     }//end calculations()
 
 }//end class DataBag
