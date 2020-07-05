@@ -1,11 +1,6 @@
 
-////
-///for future to-do items, search for words such as *** , ADD , note .
-///for more information, see Notes section below. (if available)
-////
 
-//done: please change fight_id to just id.
-
+//includes: a place to collect the data for 1 single fight. Also method for setting the data.
 public class FightResult{
     String id;        //*** where do I use this as a string, and where as an int? hmmm
 

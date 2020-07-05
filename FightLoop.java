@@ -1,10 +1,5 @@
 import java.util.*; //for Arrays. also Random.
 
-////
-///for future to-do items, search for words such as *** , ADD , note .
-//for more information, see Notes section below. (if available)
-
-////
 
 
 //includes: FightLoop class, a separate environment for setting up fights.
@@ -33,12 +28,13 @@ public class FightLoop{
             t2.resetTeam();
         }//end for
 
+                //Algorithm:
         //if enemies all dead, win and end fight.
-        //if active is dead, skip turn.
-        //else if active.enemy dead, change enemy
+        //Else, if active is dead, skip turn.
+        //Else, if active's enemy is dead, change enemy.
         //then, active hits enemy.
-        //then, if kills enemy, make it dead and add to deaths.
-        //then, turn++ and round++
+        //then, if active kills enemy, make it dead and add to team's deaths.
+        //then, turn++ and round++.
 
         return data_bag;
     }//end fight2Teams(t1, t2)

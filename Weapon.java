@@ -1,11 +1,7 @@
 
-////
-///for future to-do items, search for words such as *** , ADD , note .
-///for more information, see Notes section below. (if available)
-////
 
 //includes: a weapon class that has its own properties.
-//i think i can include many templates in the constructor, for different weapons.
+//I think I can include many templates in the constructor, for different weapons.
 public class Weapon{
         int dice;
         int type;

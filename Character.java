@@ -1,13 +1,7 @@
 import java.util.*;     //for random. random.nextInt()
 import java.lang.*;     //for Math. Math.max(a,b)
 
-
 // 7/6/2020. Added updateStats().
-// 12/6/2020. Something.
-////
-///for future to-do items, search for words such as *** , ADD , note .
-///for more information, see Notes section below. (if available)
-////
 
 
 //includes: a character class that should be the base for all people in the simulation.
@@ -19,6 +13,7 @@ public class Character{
 
     //in DnD, every character has 6 attributes, also referred to as "stats"/"statistics"
     //they are used as modifiers for what the character is trying to do.
+    //Note: these are the MODIFIERS (e.g. +2), not the scores. (e.g. 14)
     int str;        //Strength
     int dex;        //Dexterity
     int con;        //Constitution
@@ -30,7 +25,7 @@ public class Character{
     int hp; //HP = health points (or hit points). HP = Constitution + a character's "hit dice" (not used here).
 
     int base_ac;    //this is due to Armor, or Natural armor. Without dexterity.
-    int ac; //AC = Armor Class. Basically, this is the probability of avoiding attacks. AC = either A. Dexterity + Armor value, or B. Just armor value.
+    int ac; //AC = Armor Class. Basically, this is the probability of avoiding attacks. AC = either A. Dexterity + Armor value, or B. Just armor value (not used).
 
     int pos_x;  //
     int pos_y;  //
@@ -39,24 +34,20 @@ public class Character{
     //This is the proficiency bonus. This is a regular, common bonus shared by everyone.
     int proficiency = 2;
 
-    //moved nested class Weapon to a public class.
     //Because we're making a fighting simulator, we need weapons to fight.
-    Weapon weapon;  //could be just int weapon_damage or int weapon_type, i don't know what's more correct.
-                                    //i guess using a weapon class is good because 1 weapon should have all the information about itself
-                                    //and in the future, this will be convenient for characters who swap weapons.
+    Weapon weapon;  //i guess using a weapon class is good because 1 weapon should have all the information about itself
+                    //and in the future, this will be convenient for characters who swap weapons.
 
 
 
-    Team team;  //need to implement this.
-    String life_status = "alive";   //"alive" or "dead". (maybe also "unconscious"?)
-    //values: "alive" or "dead".
+    Team team;  //***need to implement this.
+    String life_status = "alive";   //Values are "alive" or "dead". (maybe also "unconscious"?)
 
     Character enemy;                //this is for FightLoop class interaction. sets who should be attacked.
     Team enemy_team;        //this is used when this kills their enemy, and has to look for their next enemy.
 
     Character next;            //this is for FightLoop class interaction. sets who should go next. similar to LinkedList iteration.
-    //initiative integer for keeping track in fights.
-    int initiative;// = this.rollInitiative();
+    int initiative;            // = this.rollInitiative();
 
     Character(String new_name){     //constructor.
         name = new_name;
@@ -82,8 +73,9 @@ public class Character{
         ac = base_ac + dex; //***what if heavy armor? add an if here later.
     }//end void updateStats()
 
-
-    public int roll(int amount, int type, int modifier){        //dice roller.
+    //This is the dice roller method. The input (X,Y,Z) will give XdY + Z in DnD notation.
+    //e.g. inputting (2,6,3) = 2d6 + 3
+    public int roll(int amount, int type, int modifier){
         Random ran = new Random();
         int result = 0;
         for(int i = 0;i < amount; i++){     //roll "amount" many dice
@@ -114,7 +106,7 @@ public class Character{
         return result;
     }
 
-    // / / /
+
     //just a silly method for testing 2 character's interaction
     public void talkTo(Character target){   //argument is Character, which is of non-basic data type.
         System.out.println("\n        -Hello! My name is " + this.name + ", what is your name?");
@@ -201,5 +193,3 @@ public class Character{
 //about rolling
 //the format of rolling in DnD books is: XdY + Z, which means "roll Y-sided dice X times, then add Z".
 //e.g. 1d8 + 2 = roll a single 8-sided die and add 2. We get a number in range (3, 10).
-//this method: roll(X, Y, Z) = XdY + Z
-//e.g. roll(1,8,2) = 1d8+2

@@ -1,9 +1,5 @@
 import java.util.*; //for Scanner
 
-///for future to-do items, search for words such as *** , ADD , note .
-//for more information, see Notes section below. (if available)
-
-
 //includes: a place to quickly assign stats and create Characters.
 //ADD Saving and loading characters from an external file.
 public class CharacterCreator{

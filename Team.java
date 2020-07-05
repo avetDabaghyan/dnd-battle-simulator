@@ -1,12 +1,6 @@
 import java.util.*; //for Arrays.
 
-////
-///for future to-do items, search for words such as *** , ADD , note .
-///for more information, see Notes section below. (if available)
-////
 
-
-//--------------------------------
 //includes: an ArrayList of Characters.
 public class Team{
         String name;
