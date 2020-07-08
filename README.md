@@ -10,18 +10,16 @@ How to use: Input your characters, the monsters and their stats; output is showi
 Right now, this isn't exactly usable - you have to input your characters in main.java, using the creator.CreationV2(...) method. There is no GUI to do it, which is my main concern for the future.
 
 Development stack:
-* OS: Windows 10
-* Text editor: Atom
 * Running environment: command line. (I want to use an IDE like Eclipse, but would like to start using it on another project.)
 * Java version: 8 (I think, will have to check.)
 
 To try it out:
 * Clone/download this;
-* In command line, go to the folder (using "cd folder-name");
-* Compile the main(driver) class, with "javac main.java";
+* In command line, go to the folder using `cd folder-name`;
+* Compile the main(driver) class, with `javac main.java`;
 This should compile all other .java files as well, creating the .class files for each.
-If it doesn't work, then use "javac .", which should compile all files in this folder (denoted by the ".");
-* Run it with "java main"; the output should be visible in the command line.
+If it doesn't work, then use `javac .`, which should compile all files in this folder (denoted by the ".");
+* Run it with `java main`; the output should be visible in the command line.
 You'll see numbers and percentages - the percentage is for the probability of a TPK.
 
 If there are issues with running this, let me know.
