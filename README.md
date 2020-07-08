@@ -11,7 +11,7 @@ Right now, this isn't exactly usable - you have to input your characters in main
 
 Development stack:
 * Running environment: command line. (I want to use an IDE like Eclipse, but would like to start using it on another project.)
-* Java version: 8 (I think, will have to check.)
+* Java version: 12.0.2
 
 To try it out:
 * Clone/download this;
